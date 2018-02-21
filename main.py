@@ -9,7 +9,7 @@ from GUI.CodeHightlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
 
 
-# MainAppliction class
+# MainApplication class
 class MainApplication:
 
     # runs on MainApplication creation
