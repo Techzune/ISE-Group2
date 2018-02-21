@@ -3,7 +3,10 @@
 # purpose: Primary application file; hub of application
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget
+
 from GUI.InitWindow import InitWindow
+from GUI.CodeHightlightWindow import CodeHighlightWindow
+from GUI.VisualizationWindow import VisualizationWindow
 
 
 # MainAppliction class
@@ -14,14 +17,23 @@ class MainApplication:
         # create the application
         app = QApplication([])
 
+        # create the windows
+        self.init_window = InitWindow(self)
+        self.code_window = CodeHighlightWindow(self)
+        self.viz_window = VisualizationWindow(self)
+
+        # check if the user provided arguments
+        if len(sys.argv) > 1:
+            # if so, skip showing the init window
+            # TODO: run start_algorithm with proper arguments
+            # TODO: write the handler for arguments
+            print("arguments detected!", sys.argv)
+        else:
+            # if not, show the init window
+            self.init_window.show()
+
         # start the application loop (this prevents the program from exiting instantly)
         sys.exit(app.exec_())
-
-    # shows the initialization window
-    def show_init_window(self):
-        # create the init window and show
-        init_window = InitWindow(self)
-        init_window.show()
 
     # starts the algorithm
     # acts as a callback from InitWindow or from command line
@@ -46,6 +58,3 @@ if __name__ == "__main__":
 
     # create the main application (python does not use "new")
     main = MainApplication()
-
-    if len(sys.argv) == 0:
-        main.show_init_window()
