@@ -2,9 +2,10 @@
 Software Engineering Group 2 project written in Python and PyQt5.
 
 ## Before you code...
-Open a terminal and run the following command line:
+Open a terminal and run the following command lines:
 ```
 pip3 install pyqt5
+pip3 install pyqt5-tools
 ```
 This installs the PyQt5 dependency that will be used for our project.
 
@@ -18,7 +19,7 @@ python main.py [-f [FILEPATH] | -m NUM,BY,COMMAS | -r SIZEOFN] [-a ALGORITHMNAME
     -v        Show animations
     -s        Enable step-by-step
     -d [SEC]  Enable delay in seconds
-    
+
   EXAMPLES:
     python main.py
       (Shows Initialization Window)
