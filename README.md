@@ -9,6 +9,9 @@ pip3 install pyqt5-tools
 ```
 This installs the PyQt5 dependency that will be used for our project.
 
+## Setting up GitHub with PyCharm
+DO NOT sync PyCharm XML/property files!
+
 ## Running the software
 You can simply run "main.py" to open the initialization GUI.
 
