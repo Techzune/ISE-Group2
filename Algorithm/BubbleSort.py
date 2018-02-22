@@ -1,7 +1,7 @@
 # Title: BubbleSort
 # Author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # Purpose: Take in List and check the element at index I and I+1. If element i > i+1, then it swap the element.
-# At the end of 1st run, the last element in the array will be largest.;
+# At the end of 1st run, the last element in the array will be largest.
 
 
 def sort(element):
