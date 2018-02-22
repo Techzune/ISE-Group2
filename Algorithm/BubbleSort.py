@@ -16,15 +16,24 @@ def sort(element):
         if value is True:
             print("Array already sorted")
             break
+    return element
+
+element = [12, 5, 2, 6, 7, 3]               # Random Testing Numbers
+
+array = []                                  # Taking an input from File
+filename = input("What is the name of input file? ")
+with open(filename) as f:
+    for line in f:
+        array.append(line)                  # Appending each element of file to List as string
 
 
-element = [0, 1, 2, 4]
-sort(element)
+array = list(map(int, array))               # Converting list to string
+sort(array)                                 # Calling Function
 
 
 # Print out Element in Array
-for each in range(len(element)):
-    print(element[each])
+for each in range(len(array)):
+    print(array[each])
 
 
 
