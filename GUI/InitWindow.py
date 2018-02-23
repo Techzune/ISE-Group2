@@ -13,7 +13,7 @@ class InitWindow(QMainWindow):
 
     def __init__(self, main_app):
         """
-        Initialization of the Initializaton Window
+        Initialization of the InitWindow
 
         :param main_app: a reference to main.py (MainApplication)
         """
