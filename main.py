@@ -2,8 +2,9 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Primary application file; hub of application
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget
 
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QApplication
 from GUI.InitWindow import InitWindow
 from GUI.CodeHightlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
@@ -16,6 +17,9 @@ class MainApplication:
     def __init__(self):
         # create the application
         app = QApplication([])
+
+        # enable high DPI for application
+        app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 
         # create the windows
         self.init_window = InitWindow(self)
@@ -39,7 +43,6 @@ class MainApplication:
     # acts as a callback from InitWindow or from command line
     def start_algorithm(self, **kwargs):
         pass
-
 
 # PROGRAM START #
 # check if this is the main file (if the user opened this file first)
