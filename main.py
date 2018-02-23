@@ -1,6 +1,7 @@
 # title: SWEG2Application
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Primary application file; hub of application
+import PyQt5
 import sys
 
 from PyQt5 import QtCore
@@ -17,9 +18,6 @@ class MainApplication:
     def __init__(self):
         # create the application
         app = QApplication([])
-
-        # enable high DPI for application
-        app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 
         # create the windows
         self.init_window = InitWindow(self)
@@ -42,9 +40,18 @@ class MainApplication:
     # starts the algorithm
     # acts as a callback from InitWindow or from command line
     def start_algorithm(self, **kwargs):
+
+        # show visualization_window if requested
+        if "show_viz" in kwargs and kwargs["show_viz"] is True:
+            self.viz_window.show()
+
         pass
 
+
 # PROGRAM START #
+# enable high DPI for application
+PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
 # check if this is the main file (if the user opened this file first)
 if __name__ == "__main__":
     # print a header
