@@ -48,6 +48,8 @@ class InitWindow(QMainWindow):
         EVENT: click for "Run Algorithm" button
         """
 
+        self.main_application.start_algorithm(show_viz=True)
+
         # TODO: implement return of data to MainApplication
         print("let's play ball!")
 

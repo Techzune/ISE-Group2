@@ -5,6 +5,9 @@ from PyQt5.QtWidgets import QMainWindow
 
 
 # inherits QMainWindow (a basic window)
+from gvanim import Animation
+
+
 class VisualizationWindow(QMainWindow):
 
     def __init__(self, main_app):
