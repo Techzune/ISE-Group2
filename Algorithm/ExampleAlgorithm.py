@@ -8,6 +8,7 @@ from Algorithm.Algorithm import Algorithm
 
 
 class ExampleAlgorithm(Algorithm):
+    multiplier = 2
 
     def sort(self, num_list):
         """
@@ -20,7 +21,7 @@ class ExampleAlgorithm(Algorithm):
         result = []
 
         for num in num_list:
-            result.append(self._multiply(num, 2))
+            result.append(self._multiply(num, self.multiplier))
 
         return result
 
