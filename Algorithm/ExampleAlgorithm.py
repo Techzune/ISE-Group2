@@ -20,6 +20,16 @@ class ExampleAlgorithm(Algorithm):
         result = []
 
         for num in num_list:
-            result.append(num * 2)
+            result.append(self._multiply(num, 2))
 
         return result
+
+    def _multiply(self, a1, a2):
+        """
+        Private function that multiplies two numbers
+
+        :param a1: the first number
+        :param a2: the second number
+        :return: the product
+        """
+        return a1 * a2
