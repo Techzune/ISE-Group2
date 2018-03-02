@@ -53,15 +53,13 @@ def __get_size_n():
 
 def __gen_list_of_n(size_n):
     # start with a blank list and Random class
-    num_list = []
     random = Random()
 
-    # append random ints of size N
-    for i in range(size_n):
-        num_list.append(random.randint(-size_n, size_n))
+    # generates a randomized list without duplicates
+    return_list = random.sample(range(-size_n, size_n), size_n)
 
     # return the list
-    return num_list
+    return return_list
 
 
 def __output_nums_to_file(out_path, num_list):
