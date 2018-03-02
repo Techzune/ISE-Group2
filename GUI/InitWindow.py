@@ -2,7 +2,7 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Backbone of init window; a configuration window to define parameters for software
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
 
 
@@ -42,16 +42,18 @@ class InitWindow(QMainWindow):
         # add event listener to combobox
         self.cbox_source_select.currentIndexChanged.connect(self.on_source_select_changed)
 
+        # add event listener to browse button click
+        self.btn_browse.clicked.connect(self.on_browse_clicked)
+
     @pyqtSlot()
     def on_run_clicked(self):
         """
         EVENT: click for "Run Algorithm" button
         """
 
+        # TODO: pass arguments back to MainApplication
         self.main_application.start_algorithm(show_viz=True)
-
-        # TODO: implement return of data to MainApplication
-        print("let's play ball!")
+        self.hide()
 
     @pyqtSlot()
     def on_source_select_changed(self):
@@ -74,3 +76,22 @@ class InitWindow(QMainWindow):
             # "Manual number input" is selected
             self.lbl_source.setText("List of numbers (separated by commas):")
             self.btn_browse.setEnabled(False)
+
+        # clear the input_source textbox
+        self.input_source.setText("")
+
+    @pyqtSlot()
+    def on_browse_clicked(self):
+        """
+        EVENT: click for "..." (browse) button
+        """
+
+        # make sure QFileDialog doesn't use the native dialog-- for Linux/Windows safety
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+
+        # open the dialog for .txt file
+        fileName, _ = QFileDialog.getOpenFileName(None, "Select input file", "", "Text Files (*.txt)", options=options)
+
+        # put result in input_source box
+        self.input_source.setText(fileName)
