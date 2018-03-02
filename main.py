@@ -16,6 +16,10 @@ class MainApplication:
 
     # runs on MainApplication creation
     def __init__(self):
+        """
+        Initialization of the MainApplication.
+        """
+
         # create the application
         app = QApplication([])
 
@@ -37,9 +41,13 @@ class MainApplication:
         # start the application loop (this prevents the program from exiting instantly)
         sys.exit(app.exec_())
 
-    # starts the algorithm
-    # acts as a callback from InitWindow or from command line
     def start_algorithm(self, **kwargs):
+        """
+        Starts the algorithm.
+        Acts as a callback from InitWindow.
+
+        :param kwargs: dictionary-arguments for the algorithm to run
+        """
 
         # show visualization_window if requested
         if "show_viz" in kwargs and kwargs["show_viz"] is True:
@@ -49,6 +57,7 @@ class MainApplication:
 
 
 # PROGRAM START #
+
 # enable high DPI for application
 PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 
