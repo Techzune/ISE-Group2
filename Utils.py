@@ -34,7 +34,7 @@ def file_to_nums(file_path):
     # open the path as "file" -- this automatically closes the file
     with open(file_path) as file:
         # get each line in the file
-        for line in file:
+        for i, line in enumerate(file, 1):
             # strip the line of "\n"
             line = line.rstrip()
 
@@ -44,7 +44,7 @@ def file_to_nums(file_path):
                 num_list.append(int(line))
             else:
                 # otherwise, skip the line
-                print("WARNING: line skipped in file, not integer:", line)
+                print("*!* line", i, "skipped in file || not an int:", line, "*!*")
 
     # return the list
     return num_list
