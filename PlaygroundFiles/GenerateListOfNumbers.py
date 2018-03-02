@@ -80,25 +80,22 @@ print("="*50)
 # get the path from the user
 path = __get_output_path()
 print()
-print("-"*50)
 
 # get the size of N from the user
 n = __get_size_n()
 print()
-print("-"*50)
 
 # generate the list of size N
-print("* generating list of size", n)
+print("*generating list of size", n)
 num_list = __gen_list_of_n(n)
-print("\t", num_list)
+print(num_list)
 print()
-print("-"*50)
 
 # output the numbers to the file
-print("* outputting numbers to", path)
+print("*outputting numbers to", path)
 __output_nums_to_file(path, num_list)
 print()
-print("-"*50)
+print()
 
 # all done
 print("All done! Have a nice day! :D")
