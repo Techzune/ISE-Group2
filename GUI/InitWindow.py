@@ -2,11 +2,17 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Backbone of init window; a configuration window to define parameters for software
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QCheckBox, QSpinBox, QLineEdit, QComboBox
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QCheckBox, QSpinBox, QLineEdit, QComboBox, QErrorMessage, \
+    QMessageBox
 from PyQt5.uic import loadUi
 
 
 # noinspection PyArgumentList
+from PyQt5.uic.properties import QtWidgets
+
+import Utils
+
+
 class InitWindow(QMainWindow):
     """
     Initialization Window, inherits from QMainWindow (a basic window)
@@ -51,6 +57,14 @@ class InitWindow(QMainWindow):
         """
         EVENT: click for "Run Algorithm" button
         """
+
+        # verify that the source is specified
+        if len(self.input_source.text()) == 0:
+            # show an error message if it is blank
+            message = QMessageBox()
+            message.setWindowTitle("Hold up!")
+            message.setText("Source cannot be blank!")
+            message.show()
 
         # creates an empty dictionary
         # noinspection PyDictCreation
