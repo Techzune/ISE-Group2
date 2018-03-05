@@ -53,7 +53,7 @@ class MainApplication:
         Starts the algorithm.
         Acts as a callback from InitWindow.
 
-        :param kwargs: dictionary-arguments for the algorithm to run
+        :param options: dictionary-arguments for the algorithm to run
         """
 
         # create a blank algorithm
