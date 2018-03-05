@@ -108,7 +108,6 @@ class InitWindow(QMainWindow):
 
         except Exception as e:
             # if an exception occurs, show the error
-
             Utils.error_message(str(e))
 
     @pyqtSlot()
