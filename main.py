@@ -82,7 +82,12 @@ class MainApplication:
         if "file" in options:
             num_list = Utils.file_to_nums(options["file"])
         elif "random" in options:
-            pass
+            # make sure size N is an integer
+            if not Utils.isInt(options["random"]):
+                raise Exception("size N is not an integer!")
+
+            # generate random list
+            num_list = Utils.generate_ints(int(options["random"]))
         elif "manual" in options:
             num_list = Utils.commas_to_nums(options["manual"])
         else:

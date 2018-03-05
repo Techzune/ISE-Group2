@@ -1,6 +1,7 @@
 # title: Utils
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Provides various utility functions to our program
+from random import Random
 
 
 def isInt(val):
@@ -78,3 +79,24 @@ def commas_to_nums(comma_string):
 
     # return the list
     return num_list
+
+
+def generate_ints(size_n):
+    """
+    Generates a list of size N consisting of random integers.
+    Ranges from -N to +N; no duplicates.
+
+    :param size_n: size N
+    :return: the list of random integers
+    """
+
+    # make sure that N isn't less than 0
+    if size_n < 0:
+        raise Exception("size n cannot be less than zero!")
+
+    # creates a Random making object
+    random = Random()
+
+    # return the random list
+    return random.sample(range(-size_n, size_n), size_n)
+
