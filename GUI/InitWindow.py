@@ -2,17 +2,12 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Backbone of init window; a configuration window to define parameters for software
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QCheckBox, QSpinBox, QLineEdit, QComboBox, QErrorMessage, \
-    QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
-
-
-# noinspection PyArgumentList
-from PyQt5.uic.properties import QtWidgets
-
 import Utils
 
 
+# noinspection PyArgumentList
 class InitWindow(QMainWindow):
     """
     Initialization Window, inherits from QMainWindow (a basic window)
