@@ -61,49 +61,55 @@ class InitWindow(QMainWindow):
         # verify that the source is specified
         if len(self.input_source.text()) == 0:
             # show an error message if it is blank
-            message = QMessageBox()
-            message.setWindowTitle("Hold up!")
-            message.setText("Source cannot be blank!")
-            message.show()
+            Utils.error_message("Source box cannot be blank!")
+            return
 
-        # creates an empty dictionary
-        # noinspection PyDictCreation
-        options = {}
+        # exception handling for visual purposes
+        # (shows exceptions in a message box)
+        try:
+            # creates an empty dictionary
+            # noinspection PyDictCreation
+            options = {}
 
-        # specify the algorithm to run
-        options["algorithm"] = self.cbox_algorithm.currentText()
+            # specify the algorithm to run
+            options["algorithm"] = self.cbox_algorithm.currentText()
 
-        # get the selected index
-        index = self.cbox_source_select.currentIndex()
+            # get the selected index
+            index = self.cbox_source_select.currentIndex()
 
-        if index == 0:
-            # "File with numbers" is selected
-            options["file"] = self.input_source.text()
-        elif index == 1:
-            # "Random list of size N" is selected
-            options["random"] = self.input_source.text()
-        elif index == 2:
-            # "Manual number input" is selected
-            options["manual"] = self.input_source.text()
+            if index == 0:
+                # "File with numbers" is selected
+                options["file"] = self.input_source.text()
+            elif index == 1:
+                # "Random list of size N" is selected
+                options["random"] = self.input_source.text()
+            elif index == 2:
+                # "Manual number input" is selected
+                options["manual"] = self.input_source.text()
 
-        # specify if visualizations should show
-        options["show_viz"] = self.check_show_visualization.isChecked()
+            # specify if visualizations should show
+            options["show_viz"] = self.check_show_visualization.isChecked()
 
-        # specify if code highlighting should occur
-        options["show_highlight"] = self.check_show_highlighting.isChecked()
+            # specify if code highlighting should occur
+            options["show_highlight"] = self.check_show_highlighting.isChecked()
 
-        # specify if step-by-step should run
-        options["use_steps"] = self.check_use_steps.isChecked()
+            # specify if step-by-step should run
+            options["use_steps"] = self.check_use_steps.isChecked()
 
-        # specify delay time if enabled
-        if self.check_use_delay.isChecked():
-            options["delay"] = self.input_delay_seconds.value()
+            # specify delay time if enabled
+            if self.check_use_delay.isChecked():
+                options["delay"] = self.input_delay_seconds.value()
 
-        # run the algorithm
-        self.main_application.start_algorithm(options)
+            # run the algorithm
+            self.main_application.start_algorithm(options)
 
-        # close the init window
-        self.close()
+            # close the init window
+            self.close()
+
+        except Exception as e:
+            # if an exception occurs, show the error
+
+            Utils.error_message(str(e))
 
     @pyqtSlot()
     def on_source_select_changed(self):

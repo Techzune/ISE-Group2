@@ -3,6 +3,8 @@
 # purpose: Provides various utility functions to our program
 from random import Random
 
+from PyQt5.QtWidgets import QMessageBox
+
 
 def isInt(val):
     """
@@ -100,3 +102,9 @@ def generate_ints(size_n):
     # return the random list
     return random.sample(range(-size_n, size_n), size_n)
 
+
+def error_message(msg):
+    m_box = QMessageBox()
+    m_box.setWindowTitle("Hold up!")
+    m_box.setText(msg)
+    m_box.exec()
