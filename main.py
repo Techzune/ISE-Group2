@@ -41,7 +41,7 @@ class MainApplication:
         # start the application loop (this prevents the program from exiting instantly)
         sys.exit(app.exec_())
 
-    def start_algorithm(self, **kwargs):
+    def start_algorithm(self, options):
         """
         Starts the algorithm.
         Acts as a callback from InitWindow.
@@ -49,11 +49,20 @@ class MainApplication:
         :param kwargs: dictionary-arguments for the algorithm to run
         """
 
-        # show visualization_window if requested
-        if "show_viz" in kwargs and kwargs["show_viz"] is True:
-            self.viz_window.show()
+        # ensure that algorithm is specified
+        if "algorithm" not in options:
+            raise Exception("algorithm is not defined")
 
-        pass
+        # determine source of number input
+        if "file" in options:
+            pass
+        elif "random" in options:
+            pass
+        elif "manual" in options:
+            pass
+
+        # TODO: actually implement arguments
+        print(options)
 
 
 # PROGRAM START #

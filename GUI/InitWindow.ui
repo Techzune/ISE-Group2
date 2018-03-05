@@ -143,7 +143,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QCheckBox" name="check_show_visualizaton">
+   <widget class="QCheckBox" name="check_show_visualization">
     <property name="geometry">
      <rect>
       <x>10</x>

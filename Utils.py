@@ -48,3 +48,32 @@ def file_to_nums(file_path):
 
     # return the list
     return num_list
+
+def commas_to_nums(comma_string):
+    """
+    Converts a list of ints separated by commas into a Python list of ints.
+
+    :param comma_string: the comma-separated int string
+    :return: a Python list of ints
+    """
+
+    # define the list of ints to return
+    num_list = []
+
+    # remove all spaces
+    space_free = comma_string.replace(" ", "")
+
+    # split the string by commas
+    comma_split = space_free.split(",")
+
+    # for each part in the split
+    for part in comma_split:
+        # check if the part is an integer
+        if isInt(part):
+            # append the part
+            num_list.append(int(part))
+        else:
+            print("*!* part skipped || not an integer:", part, "*!*")
+
+    # return the list
+    return num_list

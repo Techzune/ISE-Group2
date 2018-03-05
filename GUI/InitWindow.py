@@ -2,10 +2,11 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
 # purpose: Backbone of init window; a configuration window to define parameters for software
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QCheckBox, QSpinBox, QLineEdit, QComboBox
 from PyQt5.uic import loadUi
 
 
+# noinspection PyArgumentList
 class InitWindow(QMainWindow):
     """
     Initialization Window, inherits from QMainWindow (a basic window)
@@ -51,9 +52,44 @@ class InitWindow(QMainWindow):
         EVENT: click for "Run Algorithm" button
         """
 
-        # TODO: pass arguments back to MainApplication
-        self.main_application.start_algorithm(show_viz=True)
-        self.hide()
+        # creates an empty dictionary
+        # noinspection PyDictCreation
+        options = {}
+
+        # specify the algorithm to run
+        options["algorithm"] = self.cbox_algorithm.currentText()
+
+        # get the selected index
+        index = self.cbox_source_select.currentIndex()
+
+        if index == 0:
+            # "File with numbers" is selected
+            options["file"] = self.input_source.text()
+        elif index == 1:
+            # "Random list of size N" is selected
+            options["random"] = self.input_source.text()
+        elif index == 2:
+            # "Manual number input" is selected
+            options["manual"] = self.input_source.text()
+
+        # specify if visualizations should show
+        options["show_viz"] = self.check_show_visualization.isChecked()
+
+        # specify if code highlighting should occur
+        options["show_highlight"] = self.check_show_highlighting.isChecked()
+
+        # specify if step-by-step should run
+        options["use_steps"] = self.check_use_steps.isChecked()
+
+        # specify delay time if enabled
+        if self.check_use_delay.isChecked():
+            options["delay"] = self.input_delay_seconds.value()
+
+        # run the algorithm
+        self.main_application.start_algorithm(options)
+
+        # close the init window
+        self.close()
 
     @pyqtSlot()
     def on_source_select_changed(self):
