@@ -9,11 +9,13 @@ class Algorithm:
     All algorithm files MUST extend this interface.
 
     @param num_list            the list of numbers the algorithm will sort
+    @param viz_enabled         true, if the visualization window should show
     @param highlight_enabled   true, if the code-highlighting window should highlight lines
     @param steps_enabled       true, if the algorithm should run in step-by-step mode
     @param delay               the time, in seconds, the algorithm should pause in operations
     """
     num_list = []
+    viz_enabled = False
     highlight_enabled = False
     steps_enabled = False
     delay = 0
@@ -27,6 +29,15 @@ class Algorithm:
         """
         self.viz_window = viz_window
         self.cod_window = cod_window
+
+    def enable_visualization(self, new_value):
+        """
+        Sets if the visualization window should show the visualization.
+
+        :param new_value: the new value of the boolean
+        :return: None
+        """
+        self.viz_enabled = new_value
 
     def enable_highlight(self, new_value):
         """
