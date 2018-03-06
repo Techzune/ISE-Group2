@@ -104,7 +104,18 @@ def generate_ints(size_n):
 
 
 def error_message(msg):
+    """
+    Displays a PyQt Message Box with supplied message
+
+    :param msg: the message to display
+    """
+
+    # create the message box
     m_box = QMessageBox()
+
+    # set the title and text
     m_box.setWindowTitle("Hold up!")
     m_box.setText(msg)
+
+    # start the message box
     m_box.exec()
