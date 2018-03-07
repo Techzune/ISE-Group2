@@ -10,7 +10,7 @@ class CountingSort(Algorithm):
         n = len(num_list)
         m = max(num_list)
         count = [0] * m
-        for a in num_list:
+        for a in range(num_list):
             num_list[a] += 1
         i = 0
         for a in range(m):
