@@ -13,6 +13,13 @@ class QuickSort(Algorithm):
         equals = []
         greater_than = []
 
+        """
+        if needed
+        create the separation of the buckets in visualization
+        PROBLEM: creating the bucket separation would cause difficulties
+        when re-merging the buckets
+        """
+
         # there are actually numbers to sort
         if len(num_list) > 1:
 
@@ -32,16 +39,35 @@ class QuickSort(Algorithm):
                     pivot = third
 
             # the actual sorting
-            # dumping some numbers into some buckets
+            # dumping some numbers into some buckets with labels
             for i in num_list:
                 if i < pivot:
                     less_than.append(i)
+
+                    """
+                    move the current object into the less_than bucket
+                    """
+
                 if i == pivot:
                     equals.append(i)
+
+                    """
+                    move the current object into the equals object
+                    """
+
                 if i > pivot:
                     greater_than.append(i)
 
-                # UPDATE THE VISUALIZATION WINDOW
+                    """
+                    move the current object into the greater_than bucket
+                    """
+
+            """
+            If the bucket/separations were made earlier
+            merge the buckets all back together into one list
+            PROBLEM: Would need to change the visualization post 
+            return statement. 
+            """
 
             return self.sort(less_than) + equals + self.sort(greater_than)
 
