@@ -1,5 +1,5 @@
 # Title: BubbleSort
-# Author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
+# Author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # Purpose: Interface for algorithm files, ensures common ground
 
 

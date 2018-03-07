@@ -1,5 +1,5 @@
 # title: VisualizationWindow
-# author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
+# author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Backbone of visualization window; displays graphical representation of algorithm
 from PyQt5.QtWidgets import QMainWindow
 

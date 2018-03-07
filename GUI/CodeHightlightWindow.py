@@ -1,5 +1,5 @@
 # title: CodeHighlightWindow
-# author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
+# author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Backbone of code highlighting window; displays code with algorithm steps highlighted
 from PyQt5.QtWidgets import QMainWindow
 

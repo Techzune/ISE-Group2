@@ -1,5 +1,5 @@
 # title: SWEG2Application
-# author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh
+# author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Primary application file; hub of application
 import PyQt5
 import sys
@@ -140,6 +140,7 @@ if __name__ == "__main__":
           "|              Avan Patel    Kohler Smallwood      |",
           "|              Azlin Reed    Jordan Stremming      |",
           "|            Steven Huynh    Zach Butterbaugh      |",
+          "|                     Thea Furby                   |",
           "====================================================",
           "",
           sep="\n")
