@@ -1,6 +1,8 @@
 # title: InitWindow
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Backbone of init window; a configuration window to define parameters for software
+import traceback
+
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
@@ -103,6 +105,7 @@ class InitWindow(QMainWindow):
 
         except Exception as e:
             # if an exception occurs, show the error
+            traceback.print_exc()
             Utils.error_message(str(e))
 
     @pyqtSlot()
