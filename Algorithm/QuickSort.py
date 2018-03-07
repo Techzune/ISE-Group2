@@ -8,6 +8,7 @@ class QuickSort(Algorithm):
 
     def sort(self, num_list):
 
+        # creation of the buckets
         less_than = []
         equals = []
         greater_than = []
@@ -20,6 +21,7 @@ class QuickSort(Algorithm):
             pivot = num_list[0]
 
             # the actual sorting
+            # dumping some numbers into some buckets
             for i in num_list:
                 if i < pivot:
                     less_than.append(i)
