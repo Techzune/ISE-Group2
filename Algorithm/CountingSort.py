@@ -8,7 +8,7 @@ class CountingSort(Algorithm):
 
     def sort(self, num_list):
         n = len(num_list)
-        m = num_list.max()
+        m = max(num_list)
         count = [0] * m
         for a in num_list:
             num_list[a] += 1
