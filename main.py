@@ -1,18 +1,18 @@
 # title: SWEG2Application
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Primary application file; hub of application
+
 import PyQt5
 import sys
-
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication
-
+import time
 import Utils
 from Algorithm.BubbleSort import BubbleSort
 from Algorithm.CountingSort import CountingSort
 from Algorithm.InsertionSort import InsertionSort
 from Algorithm.MergeSort import MergeSort
 from Algorithm.QuickSort import QuickSort
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QApplication
 from GUI.InitWindow import InitWindow
 from GUI.CodeHightlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
@@ -114,8 +114,21 @@ class MainApplication:
                 delay_int = int(options["delay"])
                 algorithm.set_delay(delay_int)
 
-        # run the algorithm
-        print(algorithm.sort(num_list))
+        # output algorithm running
+        # output the original list
+        print("RUNNING", options["algorithm"])
+        print("\tOrig List:", str(num_list))
+
+        # time the algorithm
+        time_start = time.time()
+        sort_num_list = algorithm.sort(num_list)
+        time_end = time.time()
+
+        # output the sorted list
+        print("\tSort List:", str(sort_num_list))
+
+        # output the time to sort
+        print("\tTime (ms):", time_end - time_start)
 
 
 # PROGRAM START #
