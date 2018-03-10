@@ -14,7 +14,7 @@ from Algorithm.QuickSort import QuickSort
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
 from GUI.InitWindow import InitWindow
-from GUI.CodeHightlightWindow import CodeHighlightWindow
+from GUI.CodeHighlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
 
 
@@ -48,7 +48,7 @@ class MainApplication:
         # start the application loop (this prevents the program from exiting instantly)
         sys.exit(app.exec_())
 
-    def start_algorithm(self, options):
+    def start_algorithm(self, options: dict):
         """
         Starts the algorithm.
         Acts as a callback from InitWindow.
@@ -65,15 +65,15 @@ class MainApplication:
 
         # set the algorithm properly
         if options["algorithm"] == "BubbleSort":
-            algorithm = BubbleSort(self.code_window, self.viz_window)
+            algorithm = BubbleSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "CountingSort":
-            algorithm = CountingSort(self.code_window, self.viz_window)
+            algorithm = CountingSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "InsertionSort":
-            algorithm = InsertionSort(self.code_window, self.viz_window)
+            algorithm = InsertionSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "MergeSort":
-            algorithm = MergeSort(self.code_window, self.viz_window)
+            algorithm = MergeSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "QuickSort":
-            algorithm = QuickSort(self.code_window, self.viz_window)
+            algorithm = QuickSort(self.viz_window, self.code_window)
 
         # create an empty int list
         num_list = []
