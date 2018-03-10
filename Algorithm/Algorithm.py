@@ -1,6 +1,8 @@
 # Title: BubbleSort
 # Author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # Purpose: Interface for algorithm files, ensures common ground
+from GUI.CodeHighlightWindow import CodeHighlightWindow
+from GUI.VisualizationWindow import VisualizationWindow
 
 
 class Algorithm:
@@ -20,7 +22,7 @@ class Algorithm:
     steps_enabled = False
     delay = 0
 
-    def __init__(self, viz_window, cod_window):
+    def __init__(self, viz_window: VisualizationWindow, cod_window: CodeHighlightWindow):
         """
         Initializes the Algorithm file.
 
@@ -30,7 +32,7 @@ class Algorithm:
         self.viz_window = viz_window
         self.cod_window = cod_window
 
-    def enable_visualization(self, new_value):
+    def enable_visualization(self, new_value: bool):
         """
         Sets if the visualization window should show the visualization.
 
@@ -39,7 +41,7 @@ class Algorithm:
         """
         self.viz_enabled = new_value
 
-    def enable_highlight(self, new_value):
+    def enable_highlight(self, new_value: bool):
         """
         Sets if the code-highlight window should highlight lines of code.
 
@@ -48,7 +50,7 @@ class Algorithm:
         """
         self.highlight_enabled = new_value
 
-    def enable_steps(self, new_value):
+    def enable_steps(self, new_value: bool):
         """
         Sets if the algorithm should run in step-by-step mode.
 
@@ -57,7 +59,7 @@ class Algorithm:
         """
         self.steps_enabled = new_value
 
-    def set_delay(self, seconds):
+    def set_delay(self, seconds: int):
         """
         Sets the delay, in seconds, for each algorithm operation.
 
@@ -66,7 +68,7 @@ class Algorithm:
         """
         self.delay = seconds
 
-    def sort(self, num_list):
+    def sort(self, num_list: list):
         """
         Runs the algorithm sorting function.
         Sets data on GUI interfaces.
