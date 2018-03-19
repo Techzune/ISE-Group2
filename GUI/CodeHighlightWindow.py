@@ -33,7 +33,7 @@ class CodeHighlightWindow(QMainWindow):
         self.master_font.setFamily(self.algorithm_name.font().family())
         self.master_font.setPointSize(12)
 
-    def add_line(self, text):
+    def add_line(self, text: str):
         """
         Adds a line of code to the list layout
         :param text: the text of the line
@@ -54,14 +54,29 @@ class CodeHighlightWindow(QMainWindow):
         self.line_list.addWidget(new_line)
         self.line_list.setAlignment(Qt.AlignTop)
 
-    def highlight_line(self, line):
+    def add_lines_from_file(self, file_path: str):
+        """
+        Imports multiple lines from a file
+        :param file_path: the file to import from
+        """
+
+        # open the path as "file" -- this automatically closes the file
+        with open(file_path) as file:
+
+            # for each line in the file
+            for line in file:
+
+                # add the line
+                self.add_line(line)
+
+    def highlight_line(self, line: int):
         """
         Enables the background for a particular line, but disables backgrounds for all other lines
         :param line: the line number (starts at 0)
         """
 
         # iterate through the items in the layout
-        for i in range(self.line_list.count()):
+        for i in reversed(range(self.line_list.count())):
             # select the item
             cur_item = self.line_list.takeAt(i).widget()
 
