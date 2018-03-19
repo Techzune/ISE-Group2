@@ -8,6 +8,7 @@ import time
 import Utils
 from Algorithm.BubbleSort import BubbleSort
 from Algorithm.CountingSort import CountingSort
+from Algorithm.ExampleAlgorithm import ExampleAlgorithm
 from Algorithm.InsertionSort import InsertionSort
 from Algorithm.MergeSort import MergeSort
 from Algorithm.QuickSort import QuickSort
@@ -74,6 +75,8 @@ class MainApplication:
             algorithm = MergeSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "QuickSort":
             algorithm = QuickSort(self.viz_window, self.code_window)
+        elif options["algorithm"] == "ExampleAlgorithm":
+            algorithm = ExampleAlgorithm(self.viz_window, self.code_window)
 
         # create an empty int list
         num_list = []

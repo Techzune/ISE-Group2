@@ -35,7 +35,7 @@ class InitWindow(QMainWindow):
         self.setWindowTitle("Initialization Window")
 
         # define the algorithms in the comboBox
-        self.cbox_algorithm.addItems(["BubbleSort", "CountingSort", "InsertionSort", "MergeSort", "QuickSort"])
+        self.cbox_algorithm.addItems(["BubbleSort", "CountingSort", "InsertionSort", "MergeSort", "QuickSort", "ExampleAlgorithm"])
 
         # define the sources for numbers
         self.cbox_source_select.addItems(["File with numbers", "Random list of size N", "Manual number input"])
