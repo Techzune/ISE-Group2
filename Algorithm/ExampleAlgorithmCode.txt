@@ -1,0 +1,2 @@
+get_number()
+number * 2
