@@ -1,9 +1,9 @@
 # title: CodeHighlightWindow
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Backbone of code highlighting window; displays code with algorithm steps highlighted
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtGui import QFont, QColor
-from PyQt5.QtWidgets import QMainWindow, QLabel
+from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout
 from PyQt5.uic import loadUi
 
 
@@ -20,6 +20,9 @@ class CodeHighlightWindow(QMainWindow):
         # run the init of QMainWindow
         super().__init__()
 
+        # create list for label elements
+        self.list_labels = []
+
         # save a reference to the main_app
         self.main_application = main_app
 
@@ -33,6 +36,30 @@ class CodeHighlightWindow(QMainWindow):
         self.master_font.setFamily(self.algorithm_name.font().family())
         self.master_font.setPointSize(12)
 
+        # add event listener to next button click
+        self.pushButton.clicked.connect(self.on_next_clicked)
+
+        self.current = 0
+
+        self.line_list.setContentsMargins(0, 0, 0, 0)
+        self.line_list.setSpacing(0)
+        self.line_list.update()
+
+    @pyqtSlot()
+    def on_next_clicked(self):
+        print(self.current)
+        self.highlight_line(self.current)
+        if self.current == 0:
+            self.current = 1
+        else:
+            self.current = 0
+
+    def set_alg_name(self, name: str):
+        """
+        Sets the algorithm's name in the GUI
+        """
+        self.algorithm_name.setText(name)
+
     def add_line(self, text: str):
         """
         Adds a line of code to the list layout
@@ -44,15 +71,17 @@ class CodeHighlightWindow(QMainWindow):
         new_line = QLabel()
         new_line.setText(text)
         new_line.setFont(self.master_font)
-        new_line.setFixedHeight(25)
 
-        # set the highlight color
-        palette = new_line.palette()
-        palette.setColor(new_line.backgroundRole(), QColor(70, 130, 180, 100))
-        new_line.setPalette(palette)
+        new_line.setContentsMargins(0, 5, 0, 5)
+        new_line.setFixedHeight(28)
+        new_line.adjustSize()
 
+        # add the label to the layout and set alignment
         self.line_list.addWidget(new_line)
         self.line_list.setAlignment(Qt.AlignTop)
+
+        # add the label to the list
+        self.list_labels.append(new_line)
 
     def add_lines_from_file(self, file_path: str):
         """
@@ -62,10 +91,8 @@ class CodeHighlightWindow(QMainWindow):
 
         # open the path as "file" -- this automatically closes the file
         with open(file_path) as file:
-
             # for each line in the file
             for line in file:
-
                 # add the line
                 self.add_line(line)
 
@@ -75,29 +102,28 @@ class CodeHighlightWindow(QMainWindow):
         :param line: the line number (starts at 0)
         """
 
-        # iterate through the items in the layout
-        for i in reversed(range(self.line_list.count())):
-            # select the item
-            cur_item = self.line_list.takeAt(i).widget()
+        # iterate through the stored labels
+        for i in range(len(self.list_labels)):
+            # select the label
+            cur_label = self.list_labels[i]
 
             # check if we are at the line we are looking for
-            if i == line:
-                # if so, enable the background color
-                cur_item.setAutoFillBackground(True)
-            else:
-                # otherwise, clear it
-                cur_item.setAutoFillBackground(False)
+            cur_label.setStyleSheet("QLabel { background-color: transparent; font-weight: normal; }")
+
+        # highlight the correct one
+        self.list_labels[line].setStyleSheet("QLabel { background-color: #FFB6C1; font-weight: bold; }")
 
     def clear_lines(self):
         """
         Deletes all lines in the line_list layout
         """
 
-        # iterate through the items in the layout
-        for i in reversed(range(self.line_list.count())):
-            # select the item
-            cur_item = self.line_list.takeAt(i).widget()
+        # iterate through the stored labels
+        for cur_label in self.list_labels:
+            # make sure label exists
+            if cur_label is not None:
+                # delete the label
+                cur_label.deleteLater()
 
-            # make sure item exists
-            if cur_item is not None:
-                cur_item.deleteLater()
+        # clear the list
+        self.list_labels.clear()
