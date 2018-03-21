@@ -1,11 +1,16 @@
 # title: SWEG2Application
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Primary application file; hub of application
+import threading
 
 import PyQt5
 import sys
 import time
+
+from PyQt5.QtCore import QThread, pyqtSignal, QObject, pyqtSlot
+
 import Utils
+from Algorithm.Algorithm import Algorithm
 from Algorithm.BubbleSort import BubbleSort
 from Algorithm.CountingSort import CountingSort
 from Algorithm.ExampleAlgorithm import ExampleAlgorithm
@@ -58,7 +63,7 @@ class MainApplication:
         """
 
         # create a blank algorithm
-        algorithm = None
+        alg = None
 
         # ensure that algorithm is specified
         if "algorithm" not in options:
@@ -66,17 +71,17 @@ class MainApplication:
 
         # set the algorithm properly
         if options["algorithm"] == "BubbleSort":
-            algorithm = BubbleSort(self.viz_window, self.code_window)
+            alg = BubbleSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "CountingSort":
-            algorithm = CountingSort(self.viz_window, self.code_window)
+            alg = CountingSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "InsertionSort":
-            algorithm = InsertionSort(self.viz_window, self.code_window)
+            alg = InsertionSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "MergeSort":
-            algorithm = MergeSort(self.viz_window, self.code_window)
+            alg = MergeSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "QuickSort":
-            algorithm = QuickSort(self.viz_window, self.code_window)
+            alg = QuickSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "ExampleAlgorithm":
-            algorithm = ExampleAlgorithm(self.viz_window, self.code_window)
+            alg = ExampleAlgorithm(self.viz_window, self.code_window)
 
         # create an empty int list
         num_list = []
@@ -99,15 +104,15 @@ class MainApplication:
 
         # check if show_viz was specified
         if "show_viz" in options:
-            algorithm.enable_visualization(bool(options["show_viz"]))
+            alg.enable_visualization(bool(options["show_viz"]))
 
         # check if show_highlight was specified
         if "show_highlight" in options:
-            algorithm.enable_highlight(bool(options["show_highlight"]))
+            alg.enable_highlight(bool(options["show_highlight"]))
 
         # check if step-by-step was specified
         if "use_steps" in options:
-            algorithm.enable_steps(bool(options["use_steps"]))
+            alg.enable_steps(bool(options["use_steps"]))
 
         # check if delay was specified
         if "delay" in options:
@@ -115,23 +120,45 @@ class MainApplication:
             if Utils.isInt(options["delay"]):
                 # pass data to algorithm
                 delay_int = int(options["delay"])
-                algorithm.set_delay(delay_int)
+                alg.set_delay(delay_int)
 
         # output algorithm running
         # output the original list
         print("RUNNING", options["algorithm"])
         print("\tOrig List:", str(num_list))
 
-        # time the algorithm
-        time_start = time.time()
-        sort_num_list = algorithm.sort(num_list)
-        time_end = time.time()
+        # start the algorithm thread
+        self.alg_worker = AlgorithmWorker(alg, num_list)
+        self.alg_worker.callback = self.algorithm_callback
+        self.alg_worker.start()
 
+    def algorithm_callback(self, result_list: list, time_elapsed: int):
         # output the sorted list
-        print("\tSort List:", str(sort_num_list))
+        print("\tSort List:", str(result_list))
 
         # output the time to sort
-        print("\tTime (ms):", time_end - time_start)
+        print("\tTime (ms):", time_elapsed)
+
+
+# Worker class to run algorithms in separate threads
+class AlgorithmWorker(QThread):
+    def __init__(self, alg: Algorithm, num_list: list):
+        super().__init__()
+        self.alg = alg
+        self.num_list = num_list
+
+    def run(self):
+        """
+        Runs the algorithm
+        """
+
+        # time the algorithm and get result
+        time_start = time.time()
+        result_list = self.alg.sort(self.num_list)
+        time_end = time.time()
+
+        # run the callback function
+        self.callback(result_list, time_end - time_start)
 
 
 # PROGRAM START #
