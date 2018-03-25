@@ -6,6 +6,7 @@ Instead, this file demonstrates how to implement the Algorithm interface.
 """
 import time
 
+import Utils
 from Algorithm.Algorithm import Algorithm
 from GUI.CodeHighlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
@@ -23,10 +24,9 @@ class ExampleAlgorithm(Algorithm):
         # run the standard init
         super().__init__(viz_window, cod_window)
 
-        # setup code window and show
+        # setup code window
         self.cod_window.set_alg_name("Example Algorithm")
         self.cod_window.add_lines_from_file("Algorithm/ExampleAlgorithmCode.txt")
-        self.cod_window.show()
 
     def sort(self, num_list):
         """
@@ -40,21 +40,39 @@ class ExampleAlgorithm(Algorithm):
         # create an empty result list
         result = []
 
-        for num in num_list:
-            # GUI: highlight "get_number()"
+        # add numbers to viz window
+        if self.viz_enabled:
+            self.viz_window.add_nodes(num_list)
+
+        for i, num in enumerate(num_list):
+            # CODE -- highlight "get_number()"
             self.cod_window.highlight_line(0)
 
-            # ALGORITHM: do the actual multiplication
-            result.append(self._multiply(num, self.multiplier))
+            # VISUAL -- highlight current node
+            if self.viz_enabled:
+                self.viz_window.highlight_node(i, True)
 
-            # sleep (there are 2 line changes, so divide by 2 and sleep twice)
-            time.sleep(self.delay / 2)
+            # DELAY
+            Utils.sleep_qt(self.delay * 1000 / 2)
 
-            # GUI: highlight "number * 2"
+            # CODE -- highlight "number * 2"
             self.cod_window.highlight_line(1)
 
-            # sleep
-            time.sleep(self.delay / 2)
+            # do the multiplication
+            new_val = self._multiply(num, self.multiplier)
+            result.append(new_val)
+
+            # VISUAL -- update current node to the new value
+            if self.viz_enabled:
+                self.viz_window.set_node(i, new_val)
+
+            # DELAY
+            # (there are 3 GUI changes, so divide delay by 3 and sleep 3 times)
+            Utils.sleep_qt(self.delay * 1000 / 2)
+
+            # VISUAL -- un-highlight current node
+            if self.viz_enabled:
+                self.viz_window.highlight_node(i, False)
 
         # GUI: highlight "FINISHED"
         self.cod_window.highlight_line(2)

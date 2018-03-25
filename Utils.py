@@ -3,6 +3,7 @@
 # purpose: Provides various utility functions to our program
 from random import Random
 
+from PyQt5.QtCore import QEventLoop, QTimer
 from PyQt5.QtWidgets import QMessageBox
 
 
@@ -119,3 +120,16 @@ def error_message(msg):
 
     # start the message box
     m_box.exec()
+
+
+def sleep_qt(msec):
+    """
+    PyQt-friendly sleep (sleeps while updating GUI events)
+    USE THIS INSTEAD OF time.sleep(sec)!
+
+    :param msec: the time to sleep in milliseconds
+    """
+
+    loop = QEventLoop()
+    QTimer.singleShot(msec, loop.quit)
+    loop.exec_()

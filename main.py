@@ -128,9 +128,22 @@ class MainApplication:
         print("\tOrig List:", str(num_list))
 
         # start the algorithm thread
-        self.alg_worker = AlgorithmWorker(alg, num_list)
-        self.alg_worker.callback = self.algorithm_callback
-        self.alg_worker.start()
+       # self.alg_worker = AlgorithmWorker(alg, num_list)
+       # self.alg_worker.callback = self.algorithm_callback
+       # self.alg_worker.start()
+
+        # open the GUIs
+        self.code_window.show()
+        if alg.viz_enabled:
+            self.viz_window.show()
+
+        # time the algorithm and get result
+        time_start = time.time()
+        result_list = alg.sort(num_list)
+        time_end = time.time()
+
+        # run the callback function
+        self.algorithm_callback(result_list, time_end - time_start)
 
     def algorithm_callback(self, result_list: list, time_elapsed: int):
         # output the sorted list
