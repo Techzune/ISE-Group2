@@ -20,8 +20,8 @@ class MergeSort(Algorithm):
         super().__init__(viz_window, cod_window)
 
         # setup code window
-        self.cod_window.set_alg_name("Bubble Sort")
-        self.cod_window.add_lines_from_file("Algorithm/BubbleSortCode.txt")
+        self.cod_window.set_alg_name("Merge Sort")
+        self.cod_window.add_lines_from_file("Algorithm/MergeSortCode.txt")
 
     def mergeFunction(self, list_left, list_right):
 
@@ -53,6 +53,7 @@ class MergeSort(Algorithm):
     def sort(self, num_list):
         if self.steps_enabled:
             wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
+
         listLeft = []
         listRight = []
 
@@ -61,17 +62,48 @@ class MergeSort(Algorithm):
 
         if len(num_list) >= 2:
 
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(0)
+            if self.steps_enabled:
+                wait_signal.wait()
+
             listLeft = num_list[:len(num_list)//2]
+
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(1)
+            if self.steps_enabled:
+                wait_signal.wait()
+
             listRight = num_list[len(num_list)//2:]
+
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(2)
+            if self.steps_enabled:
+                wait_signal.wait()
 
             #recurse left side
             sortedLeft = self.sort(listLeft)
 
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(3)
+            if self.steps_enabled:
+                wait_signal.wait()
+
             #recurse right side
             sortedRight = self.sort(listRight)
 
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(4)
+            if self.steps_enabled:
+                wait_signal.wait()
+
             #merge lists
             sortedList = self.mergeFunction(sortedLeft, sortedRight)
+
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(5)
+            if self.steps_enabled:
+                wait_signal.wait()
 
             #return sorted list
             return sortedList

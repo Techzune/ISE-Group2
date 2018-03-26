@@ -1,0 +1,6 @@
+if len(num_list) >= 2:
+    listLeft = num_list[:len(num_list)//2]
+    listRight = num_list[len(num_list)//2:]
+    sortedLeft = self.sort(listLeft)
+    sortedRight = self.sort(listRight)
+    sortedList = self.mergeFunction(sortedLeft, sortedRight)
