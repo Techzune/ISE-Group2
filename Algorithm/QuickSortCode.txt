@@ -1,1 +1,4 @@
-Testing
+Setting Pivot
+less_than.append(i)
+equals.append(i)
+greater_than.append(i)

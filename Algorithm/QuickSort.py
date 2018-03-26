@@ -24,12 +24,12 @@ class QuickSort(Algorithm):
 
     def sort(self, num_list):
 
-        # creation of the buckets
+        i = 0
         # STEPPING -- wait condition and signaling
         if self.steps_enabled:
             wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
 
-
+        # creation of the buckets
         less_than = []
         equals = []
         greater_than = []
@@ -38,10 +38,7 @@ class QuickSort(Algorithm):
         if self.viz_enabled:
             self.viz_window.add_nodes(num_list)
 
-        for i, num in enumerate(num_list):
-            # CODE -- highlight "get_number()"
-            if self.highlight_enabled:
-                self.cod_window.highlight_line(0)
+
 
             # VISUAL -- highlight current node
             if self.viz_enabled:
@@ -66,9 +63,14 @@ class QuickSort(Algorithm):
         # there are actually numbers to sort
         if len(num_list) > 1:
 
+            # CODE -- highlight "finding pivot"
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(0)
+
             # setting the pivot
             # using the first number as a pivot for simplicity
             pivot = num_list[0]
+
 
             if len(num_list) > 4:
                 first = num_list[0]
@@ -87,6 +89,8 @@ class QuickSort(Algorithm):
                 if i < pivot:
                     less_than.append(i)
 
+                    if self.highlight_enabled:
+                        self.cod_window.highlight_line(1)
                     """
                     move the current object into the less_than bucket
                     """
@@ -94,6 +98,8 @@ class QuickSort(Algorithm):
                 if i == pivot:
                     equals.append(i)
 
+                    if self.highlight_enabled:
+                        self.cod_window.highlight_line(2)
                     """
                     move the current object into the equals object
                     """
@@ -101,6 +107,8 @@ class QuickSort(Algorithm):
                 if i > pivot:
                     greater_than.append(i)
 
+                    if self.highlight_enabled:
+                        self.cod_window.highlight_line(3)
                     """
                     move the current object into the greater_than bucket
                     """
