@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsView,
 
 import Utils
 
+# the master radius (size) of all nodes visually
 NODE_RADIUS = 22
 
 
