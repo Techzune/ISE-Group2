@@ -35,6 +35,7 @@ class QuickSort(Algorithm):
         greater_than = []
 
         #Initialized the visualization list
+        """
         if self.viz_enabled:
             self.viz_window.add_nodes(num_list)
 
@@ -53,19 +54,21 @@ class QuickSort(Algorithm):
             if self.delay:
                 Utils.sleep_qt(self.delay * 1000 / 2)
 
-        """
+        
         if needed
         create the separation of the buckets in visualization
         PROBLEM: creating the bucket separation would cause difficulties
         when re-merging the buckets
         """
 
+
         # there are actually numbers to sort
         if len(num_list) > 1:
-
             # CODE -- highlight "finding pivot"
             if self.highlight_enabled:
                 self.cod_window.highlight_line(0)
+            if self.steps_enabled:
+                wait_signal.wait()
 
             # setting the pivot
             # using the first number as a pivot for simplicity
@@ -91,6 +94,8 @@ class QuickSort(Algorithm):
 
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(1)
+                    if self.steps_enabled:
+                        wait_signal.wait()
                     """
                     move the current object into the less_than bucket
                     """
@@ -100,6 +105,8 @@ class QuickSort(Algorithm):
 
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(2)
+                    if self.steps_enabled:
+                        wait_signal.wait()
                     """
                     move the current object into the equals object
                     """
@@ -109,6 +116,8 @@ class QuickSort(Algorithm):
 
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(3)
+                    if self.steps_enabled:
+                        wait_signal.wait()
                     """
                     move the current object into the greater_than bucket
                     """
