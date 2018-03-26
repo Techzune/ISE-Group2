@@ -229,6 +229,7 @@ class Node(QGraphicsEllipseItem):
         Sets the text of the number inside the node
         """
         self.node_text = text
+        self.update()
 
     def set_highlight(self, enabled: bool):
         """
@@ -242,6 +243,7 @@ class Node(QGraphicsEllipseItem):
             self.setBrush(Qt.lightGray)
         else:
             self.setBrush(Qt.white)
+        self.update()
 
 
 class Edge(QGraphicsLineItem):
