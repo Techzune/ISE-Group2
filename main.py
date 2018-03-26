@@ -1,13 +1,14 @@
 # title: SWEG2Application
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Primary application file; hub of application
-import threading
 
-import PyQt5
 import sys
 import time
 
-from PyQt5.QtCore import QThread, pyqtSignal, QObject, pyqtSlot
+import PyQt5
+from PyQt5 import QtCore
+from PyQt5.QtCore import QThread
+from PyQt5.QtWidgets import QApplication
 
 import Utils
 from Algorithm.Algorithm import Algorithm
@@ -17,10 +18,8 @@ from Algorithm.ExampleAlgorithm import ExampleAlgorithm
 from Algorithm.InsertionSort import InsertionSort
 from Algorithm.MergeSort import MergeSort
 from Algorithm.QuickSort import QuickSort
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication
-from GUI.InitWindow import InitWindow
 from GUI.CodeHighlightWindow import CodeHighlightWindow
+from GUI.InitWindow import InitWindow
 from GUI.VisualizationWindow import VisualizationWindow
 
 

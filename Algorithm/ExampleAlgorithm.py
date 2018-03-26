@@ -4,7 +4,6 @@
 This is a simple algorithm file that doesn't really sort anything.
 Instead, this file demonstrates how to implement the Algorithm interface.
 """
-import time
 
 import Utils
 from Algorithm.Algorithm import Algorithm
@@ -37,6 +36,10 @@ class ExampleAlgorithm(Algorithm):
         :return: the resulting list
         """
 
+        # STEPPING -- wait condition and signaling
+        if self.steps_enabled:
+            wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
+
         # create an empty result list
         result = []
 
@@ -46,17 +49,25 @@ class ExampleAlgorithm(Algorithm):
 
         for i, num in enumerate(num_list):
             # CODE -- highlight "get_number()"
-            self.cod_window.highlight_line(0)
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(0)
 
             # VISUAL -- highlight current node
             if self.viz_enabled:
                 self.viz_window.highlight_node(i, True)
 
+            # STEP -- wait for next click
+            if self.steps_enabled:
+                wait_signal.wait()
+
             # DELAY
-            Utils.sleep_qt(self.delay * 1000 / 2)
+            # (there are 2 GUI changes, so divide delay by 2 and sleep 2 times)
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
 
             # CODE -- highlight "number * 2"
-            self.cod_window.highlight_line(1)
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(1)
 
             # do the multiplication
             new_val = self._multiply(num, self.multiplier)
@@ -66,9 +77,13 @@ class ExampleAlgorithm(Algorithm):
             if self.viz_enabled:
                 self.viz_window.set_node(i, new_val)
 
+            # STEP -- wait for next click
+            if self.steps_enabled:
+                wait_signal.wait()
+
             # DELAY
-            # (there are 3 GUI changes, so divide delay by 3 and sleep 3 times)
-            Utils.sleep_qt(self.delay * 1000 / 2)
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
 
             # VISUAL -- un-highlight current node
             if self.viz_enabled:

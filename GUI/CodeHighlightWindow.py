@@ -1,14 +1,18 @@
 # title: CodeHighlightWindow
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Backbone of code highlighting window; displays code with algorithm steps highlighted
-from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtGui import QFont, QColor
-from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout
+from PyQt5.QtCore import Qt, pyqtSlot, pyqtSignal
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMainWindow, QLabel
 from PyQt5.uic import loadUi
 
 
 # inherits QMainWindow (a basic window)
 class CodeHighlightWindow(QMainWindow):
+
+    # set up signal for "Go to next step..."
+    # this must be defined outside init
+    signal_step = pyqtSignal()
 
     def __init__(self, main_app):
         """
@@ -32,6 +36,7 @@ class CodeHighlightWindow(QMainWindow):
         # set the title
         self.setWindowTitle("SWEG2 - Code Highlight Window")
 
+        # define the font used throughout the application
         self.master_font = QFont()
         self.master_font.setFamily(self.algorithm_name.font().family())
         self.master_font.setPointSize(12)
@@ -39,20 +44,18 @@ class CodeHighlightWindow(QMainWindow):
         # add event listener to next button click
         self.pushButton.clicked.connect(self.on_next_clicked)
 
-        self.current = 0
-
+        # set spacing for the line list to none
         self.line_list.setContentsMargins(0, 0, 0, 0)
         self.line_list.setSpacing(0)
         self.line_list.update()
 
     @pyqtSlot()
     def on_next_clicked(self):
-        print(self.current)
-        self.highlight_line(self.current)
-        if self.current == 0:
-            self.current = 1
-        else:
-            self.current = 0
+        """
+        Event handler for NextStep button
+        * emits a pyqtSignal: signal_step
+        """
+        self.signal_step.emit()
 
     def set_alg_name(self, name: str):
         """

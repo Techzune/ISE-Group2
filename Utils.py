@@ -3,7 +3,7 @@
 # purpose: Provides various utility functions to our program
 from random import Random
 
-from PyQt5.QtCore import QEventLoop, QTimer
+from PyQt5.QtCore import QEventLoop, QTimer, pyqtSlot
 from PyQt5.QtWidgets import QMessageBox
 
 
@@ -133,3 +133,32 @@ def sleep_qt(msec):
     loop = QEventLoop()
     QTimer.singleShot(msec, loop.quit)
     loop.exec_()
+
+
+class WaitSignal:
+    """
+    Used to wait for a signal to emit itself
+    Prevents GUI freezing
+    """
+    def __init__(self, signal):
+        # when the signal emits, run quit()
+        signal.connect(self.quit)
+
+        # set the waiting to True
+        self.waiting = True
+
+    def wait(self):
+        """
+        Wait for the signal to emit
+        """
+        # set the waiting to True
+        self.waiting = True
+
+        # sleep while waiting
+        while self.waiting:
+            sleep_qt(100)
+
+    @pyqtSlot()
+    def quit(self):
+        # set waiting to false
+        self.waiting = False

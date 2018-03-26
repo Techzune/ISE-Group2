@@ -2,9 +2,10 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Backbone of visualization window; displays graphical representation of algorithm
 
-from PyQt5.QtCore import Qt, QLineF, QRectF, QRect
-from PyQt5.QtGui import QPen, QPainter, QFont, QTextOption
-from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsView, QGraphicsLineItem, QGraphicsTextItem
+from PyQt5.QtCore import Qt, QLineF
+from PyQt5.QtGui import QPen, QPainter
+from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsView, QGraphicsLineItem
+
 import Utils
 
 NODE_RADIUS = 22

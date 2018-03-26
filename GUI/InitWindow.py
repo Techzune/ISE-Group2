@@ -6,6 +6,7 @@ import traceback
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
+
 import Utils
 
 
