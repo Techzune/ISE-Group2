@@ -1,17 +1,60 @@
 # title: QuickSort
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: algorithm;
+
+import Utils
 from Algorithm.Algorithm import Algorithm
+from GUI.CodeHighlightWindow import CodeHighlightWindow
+from GUI.VisualizationWindow import VisualizationWindow
 
 
 class QuickSort(Algorithm):
 
+    def __init__(self, viz_window: VisualizationWindow, cod_window: CodeHighlightWindow):
+        """
+        Initializes the Example Algorithm.
+        """
+
+        # run the standard init
+        super().__init__(viz_window, cod_window)
+
+        # setup code window
+        self.cod_window.set_alg_name("Quick Sort")
+        self.cod_window.add_lines_from_file("Algorithm/QuickSortCode.txt")
+
     def sort(self, num_list):
 
         # creation of the buckets
+        # STEPPING -- wait condition and signaling
+        if self.steps_enabled:
+            wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
+
+
         less_than = []
         equals = []
         greater_than = []
+
+        #Initialized the visualization list
+        if self.viz_enabled:
+            self.viz_window.add_nodes(num_list)
+
+        for i, num in enumerate(num_list):
+            # CODE -- highlight "get_number()"
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(0)
+
+            # VISUAL -- highlight current node
+            if self.viz_enabled:
+                self.viz_window.highlight_node(i, True)
+
+            # STEP -- wait for next click
+            if self.steps_enabled:
+                wait_signal.wait()
+
+            # DELAY
+            # (there are 2 GUI changes, so divide delay by 2 and sleep 2 times)
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
 
         """
         if needed

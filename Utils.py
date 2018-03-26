@@ -159,7 +159,6 @@ class WaitSignal:
         while self.waiting:
             sleep_qt(100)
 
-    @pyqtSlot()
     def quit(self):
         """
         Sets waiting to False,
