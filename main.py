@@ -126,11 +126,6 @@ class MainApplication:
         print("RUNNING", options["algorithm"])
         print("\tOrig List:", str(num_list))
 
-        # start the algorithm thread
-       # self.alg_worker = AlgorithmWorker(alg, num_list)
-       # self.alg_worker.callback = self.algorithm_callback
-       # self.alg_worker.start()
-
         # open the GUIs
         self.code_window.show()
         if alg.viz_enabled:
@@ -141,36 +136,11 @@ class MainApplication:
         result_list = alg.sort(num_list)
         time_end = time.time()
 
-        # run the callback function
-        self.algorithm_callback(result_list, time_end - time_start)
-
-    def algorithm_callback(self, result_list: list, time_elapsed: int):
         # output the sorted list
         print("\tSort List:", str(result_list))
 
         # output the time to sort
-        print("\tTime (ms):", time_elapsed)
-
-
-# Worker class to run algorithms in separate threads
-class AlgorithmWorker(QThread):
-    def __init__(self, alg: Algorithm, num_list: list):
-        super().__init__()
-        self.alg = alg
-        self.num_list = num_list
-
-    def run(self):
-        """
-        Runs the algorithm
-        """
-
-        # time the algorithm and get result
-        time_start = time.time()
-        result_list = self.alg.sort(self.num_list)
-        time_end = time.time()
-
-        # run the callback function
-        self.callback(result_list, time_end - time_start)
+        print("\tTime (ms):", time_end - time_start)
 
 
 # PROGRAM START #
