@@ -140,6 +140,7 @@ class WaitSignal:
     Used to wait for a signal to emit itself
     Prevents GUI freezing
     """
+
     def __init__(self, signal):
         # when the signal emits, run quit()
         signal.connect(self.quit)
