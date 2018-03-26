@@ -6,9 +6,8 @@ Open a terminal and run the following command lines:
 ```
 pip3 install pyqt5
 pip3 install pyqt5-tools
-pip3 install https://github.com/mapio/GraphvizAnim/archive/1.0.0.zip
 ```
-This installs the PyQt5 and GraphvizAnim dependencies that are used in this project.
+This installs the PyQt5 dependency that is used in this project.
 
 ## Setting up GitHub with PyCharm
 DO NOT sync PyCharm XML/property files!
