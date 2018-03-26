@@ -2,9 +2,26 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: algorithm;
 from Algorithm.Algorithm import Algorithm
+import Utils
+from GUI.CodeHighlightWindow import CodeHighlightWindow
+from GUI.VisualizationWindow import VisualizationWindow
+
+
 
 
 class MergeSort(Algorithm):
+
+    def __init__(self, viz_window: VisualizationWindow, cod_window: CodeHighlightWindow):
+        """
+        Initializes the Example Algorithm.
+        """
+
+        # run the standard init
+        super().__init__(viz_window, cod_window)
+
+        # setup code window
+        self.cod_window.set_alg_name("Bubble Sort")
+        self.cod_window.add_lines_from_file("Algorithm/BubbleSortCode.txt")
 
     def mergeFunction(self, list_left, list_right):
 
@@ -34,6 +51,8 @@ class MergeSort(Algorithm):
         return merge_list
 
     def sort(self, num_list):
+        if self.steps_enabled:
+            wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
         listLeft = []
         listRight = []
 

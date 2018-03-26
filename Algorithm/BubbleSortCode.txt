@@ -1,0 +1,9 @@
+ for each in range(n):
+ for i in range(0, n-each-1):
+ if element[i] > element[i+1]:
+ for i in range(0, n-each-1):
+ if element[i] > element[i+1]:
+    element[i], element[i+1] = element[i+1], element[i]
+    value = False
+ if value is True:
+    print("Array already sorted")

@@ -4,10 +4,31 @@
 #cited source: https://www.geeksforgeeks.org/insertion-sort/
 
 from Algorithm.Algorithm import Algorithm
+import Utils
+from GUI.CodeHighlightWindow import CodeHighlightWindow
+from GUI.VisualizationWindow import VisualizationWindow
+
+
 
 class InsertionSort(Algorithm):
 
+    def __init__(self, viz_window: VisualizationWindow, cod_window: CodeHighlightWindow):
+        """
+        Initializes the Example Algorithm.
+        """
+
+        # run the standard init
+        super().__init__(viz_window, cod_window)
+
+        # setup code window
+        self.cod_window.set_alg_name("Bubble Sort")
+        self.cod_window.add_lines_from_file("Algorithm/BubbleSortCode.txt")
+
     def sort(self, num_list):
+
+        if self.steps_enabled:
+            wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
+
         # Traverse through 1 to len(num_list)
         for i in range(1, len(num_list)):
 
