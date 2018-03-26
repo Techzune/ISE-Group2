@@ -161,5 +161,9 @@ class WaitSignal:
 
     @pyqtSlot()
     def quit(self):
+        """
+        Sets waiting to False,
+        (stops the wait() function)
+        """
         # set waiting to false
         self.waiting = False
