@@ -24,54 +24,72 @@ class BubbleSort(Algorithm):
         self.cod_window.set_alg_name("Bubble Sort")
         self.cod_window.add_lines_from_file("Algorithm/BubbleSortCode.txt")
 
-    def sort(self, element):
+    def sort(self, num_list):
 
         # STEP -- wait signal setup
         if self.steps_enabled:
             wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
 
-        n = len(element)
-        value = True
-        for each in range(n):
+        # VISUAL -- put numbers in visual gui
+        self.viz_window.add_nodes(num_list)
 
+        # the length of the list
+        N = len(num_list)
+
+        # if numbers are to be swapped
+        could_swap = False
+
+        # gui & delay
+        if self.highlight_enabled:
+            self.cod_window.highlight_line(0)
+        if self.steps_enabled:
+            wait_signal.wait()
+        if self.delay:
+            Utils.sleep_qt(self.delay * 1000 / 7)
+
+        # for each index in list
+        for i in range(N):
+
+            # gui & delay
             if self.highlight_enabled:
-                self.cod_window.highlight_line(0)
+                self.cod_window.highlight_line(1)
             if self.steps_enabled:
                 wait_signal.wait()
             if self.delay:
                 Utils.sleep_qt(self.delay * 1000 / 7)
 
-            # Go Through the Element in Array
-            for i in range(0, n-each-1):
+            for j in range(0, N - i - 1):
 
+                # gui & delay
                 if self.highlight_enabled:
-                    self.cod_window.highlight_line(1)
+                    self.cod_window.highlight_line(2)
+                if self.viz_enabled:
+                    self.viz_window.highlight_node(j, True)
+                    self.viz_window.highlight_node(j + 1, True)
                 if self.steps_enabled:
                     wait_signal.wait()
                 if self.delay:
                     Utils.sleep_qt(self.delay * 1000 / 7)
 
-                # After first run last element is sorted so you want to skip going that far
-                if element[i] > element[i+1]:
+                # if current number is greater than the next
+                if num_list[j] > num_list[j + 1]:
 
-                    if self.highlight_enabled:
-                        self.cod_window.highlight_line(2)
-                    if self.steps_enabled:
-                        wait_signal.wait()
-                    if self.delay:
-                        Utils.sleep_qt(self.delay * 1000 / 7)
-
-                    # If i > i+1 then swap it
-                    element[i], element[i+1] = element[i+1], element[i]
-
+                    # gui & delay
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(3)
+                    if self.viz_enabled:
+                        self.viz_window.swap_nodes(j, j + 1, msec=self.delay * 1000 / 7)
                     if self.steps_enabled:
                         wait_signal.wait()
-                    if self.delay:
+
+                    # no need to delay if visual swap already delayed
+                    if not self.viz_enabled and self.delay:
                         Utils.sleep_qt(self.delay * 1000 / 7)
 
-                    value = False
+                    # swap current number with the next
+                    num_list[j], num_list[j + 1] = num_list[j + 1], num_list[j]
+
+                    # gui & delay
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(4)
                     if self.steps_enabled:
@@ -79,17 +97,25 @@ class BubbleSort(Algorithm):
                     if self.delay:
                         Utils.sleep_qt(self.delay * 1000 / 7)
 
-            # If array already sorted then Break
-            if value is True:
-                if self.highlight_enabled:
-                    self.cod_window.highlight_line(5)
-                if self.steps_enabled:
-                    wait_signal.wait()
-                if self.delay:
-                    Utils.sleep_qt(self.delay * 1000 / 7)
+                    # numbers were swappable
+                    could_swap = True
 
-                print("Array already sorted")
+                if self.viz_enabled:
+                    self.viz_window.highlight_node(j, False)
+                    self.viz_window.highlight_node(j + 1, False)
 
+            # gui & delay
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(5)
+            if self.steps_enabled:
+                wait_signal.wait()
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 7)
+
+            # if swapping did not occur
+            if not could_swap:
+
+                # gui & delay
                 if self.highlight_enabled:
                     self.cod_window.highlight_line(6)
                 if self.steps_enabled:
@@ -102,9 +128,7 @@ class BubbleSort(Algorithm):
         if self.highlight_enabled:
             self.cod_window.highlight_last()
 
-        return element
-
-
+        return num_list
 
 # element = [12, 5, 2, 6, 7, 3]               # Random Testing Numbers
 # array = []                                  # Taking an input from File
@@ -122,5 +146,3 @@ class BubbleSort(Algorithm):
 # for each in range(len(array)):
 #     print(array[each])
 #
-
-

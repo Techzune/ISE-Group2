@@ -249,7 +249,7 @@ class Graph:
         """
 
         # change the highlight of the node
-        self._node_list[index].set_highlight(value)
+        self._node_list[index].set_highlight(value, text_color=self._color, fill_color=QColor(200, 200, 200))
 
     def set_node(self, index: int, value):
         """
@@ -361,17 +361,23 @@ class Node(QGraphicsEllipseItem):
         self.node_text = text
         self.update()
 
-    def set_highlight(self, enabled: bool):
+    def set_highlight(self, enabled: bool, text_color=Qt.white, fill_color=None):
         """
         Changes if the Node circle is highlighted
 
         :param enabled: True, if the node is highlighted
+        :param text_color: the color to use for text (default: white)
+        :param fill_color: the color to use as a filler (default: graph color)
         """
+
+        # use self color if not defined
+        if fill_color is None:
+            fill_color = self.color
 
         # set the background color if highlighted
         if enabled:
-            self.setPen(QPen(Qt.white, 2.5))
-            self.setBrush(self.color)
+            self.setPen(QPen(text_color, 2.5))
+            self.setBrush(fill_color)
         else:
             self.setPen(QPen(self.color, 2.5))
             self.setBrush(Qt.white)
