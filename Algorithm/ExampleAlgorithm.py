@@ -45,7 +45,13 @@ class ExampleAlgorithm(Algorithm):
 
         # add numbers to viz window
         if self.viz_enabled:
-            self.viz_window.add_nodes(num_list)
+            # create the graphs
+            self.viz_window.add_graph(g_index=0, name="Original")
+            self.viz_window.add_graph(g_index=1, name="Sorted")
+
+            # create the nodes
+            self.viz_window.add_nodes(num_list, g_index=0)
+            self.viz_window.add_nodes(num_list, g_index=1)
 
         for i, num in enumerate(num_list):
             # CODE -- highlight "get_number()"
@@ -54,7 +60,7 @@ class ExampleAlgorithm(Algorithm):
 
             # VISUAL -- highlight current node
             if self.viz_enabled:
-                self.viz_window.highlight_node(i, True)
+                self.viz_window.highlight_node(i, True, g_index=1)
 
             # STEP -- wait for next click
             if self.steps_enabled:
@@ -75,7 +81,7 @@ class ExampleAlgorithm(Algorithm):
 
             # VISUAL -- update current node to the new value
             if self.viz_enabled:
-                self.viz_window.set_node(i, new_val)
+                self.viz_window.set_node(i, new_val, g_index=1)
 
             # STEP -- wait for next click
             if self.steps_enabled:
@@ -87,7 +93,7 @@ class ExampleAlgorithm(Algorithm):
 
             # VISUAL -- un-highlight current node
             if self.viz_enabled:
-                self.viz_window.highlight_node(i, False)
+                self.viz_window.highlight_node(i, False, g_index=1)
 
         # GUI: highlight "FINISHED"
         self.cod_window.highlight_line(2)
