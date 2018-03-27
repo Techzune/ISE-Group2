@@ -150,36 +150,38 @@ class VisualizationWindow(QGraphicsView):
         # change the highlight of the node
         graph.highlight_node(index, value)
 
-    def set_node(self, index: int, value, g_index: int = 0):
+    def set_node(self, index: int, value, g_index: int = 0, highlight: bool = True, delay: int = 500):
         """
         Sets the value of the node in the graph
 
         :param index: the index of the node
         :param value: the value of the node
         :param g_index: the index of the graph
+        :param highlight: when true, highlight node when changing (default: True)
+        :param delay: how long (in milliseconds) to pause in between highlights and swaps
         """
 
         # validate the graph
         graph = self.validate_graph(g_index)
 
         # change the highlight of the node
-        graph.set_node(index, value)
+        graph.set_node(index, value, highlight, delay)
 
-    def swap_nodes(self, a_idx: int, b_idx: int, highlight: bool = True, g_index: int = 0, msec: int = 500):
+    def swap_nodes(self, a_idx: int, b_idx: int, highlight: bool = True, g_index: int = 0, delay: int = 500):
         """
         Swaps the values of two nodes
         :param a_idx: the index of Node a
         :param b_idx: the index of Node b
         :param highlight: when true, highlight the nodes before swapping (default: True)
         :param g_index: the index of the graph
-        :param msec: how long (in milliseconds) to pause in between highlights and swaps
+        :param delay: how long (in milliseconds) to pause in between highlights and swaps
         """
 
         # validate the graph
         graph = self.validate_graph(g_index)
 
         # swap the nodes in the graph
-        graph.swap_nodes(a_idx, b_idx, highlight, msec)
+        graph.swap_nodes(a_idx, b_idx, highlight, delay)
 
 
 class Graph:
@@ -251,21 +253,38 @@ class Graph:
         # change the highlight of the node
         self._node_list[index].set_highlight(value, text_color=self._color, fill_color=QColor(200, 200, 200))
 
-    def set_node(self, index: int, value):
+    def set_node(self, index: int, value, highlight: bool = True, delay: int = 500):
         """
         Changes the value of the specified node
+        :param index: the index of the node
+        :param value: the new value of the node
+        :param highlight: when true, highlight node when changing (default: True)
+        :param delay: how long (in milliseconds) to pause in between highlights and swaps
         """
 
-        # change the highlight of the node
-        self._node_list[index].set_text(str(value))
+        # get the node
+        node = self._node_list[index]
 
-    def swap_nodes(self, a_idx: int, b_idx: int, highlight: bool = True, msec: int = 500):
+        # set highlight and do delay
+        if highlight:
+            node.set_highlight(True)
+        Utils.sleep_qt(delay / 2)
+
+        # change the value of the node
+        node.set_text(str(value))
+
+        # set highlight and do delay
+        if highlight:
+            node.set_highlight(False)
+        Utils.sleep_qt(delay / 2)
+
+    def swap_nodes(self, a_idx: int, b_idx: int, highlight: bool = True, delay: int = 500):
         """
         Swaps the values of two nodes
         :param a_idx: the index of Node a
         :param b_idx: the index of Node b
         :param highlight: when true, highlight the nodes before swapping (default: True)
-        :param msec: how long (in milliseconds) to pause in between highlights and swaps
+        :param delay: how long (in milliseconds) to pause in between highlights and swaps
         """
 
         # ignore swapping of same nodes
@@ -281,7 +300,7 @@ class Graph:
         b.set_highlight(highlight)
 
         # delay, if specified
-        Utils.sleep_qt(msec)
+        Utils.sleep_qt(delay / 3)
 
         # swap the texts
         a_old = a.text()
@@ -289,14 +308,14 @@ class Graph:
         b.set_text(a_old)
 
         # delay, if specified
-        Utils.sleep_qt(msec)
+        Utils.sleep_qt(delay / 3)
 
         # remove the highlight, if any
         a.set_highlight(False)
         b.set_highlight(False)
 
         # delay, if specified
-        Utils.sleep_qt(msec)
+        Utils.sleep_qt(delay / 3)
 
 
 class Node(QGraphicsEllipseItem):

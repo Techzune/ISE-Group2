@@ -78,7 +78,7 @@ class BubbleSort(Algorithm):
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(3)
                     if self.viz_enabled:
-                        self.viz_window.swap_nodes(j, j + 1, msec=self.delay * 1000 / 7)
+                        self.viz_window.swap_nodes(j, j + 1, delay=self.delay * 1000 / 7)
                     if self.steps_enabled:
                         wait_signal.wait()
 

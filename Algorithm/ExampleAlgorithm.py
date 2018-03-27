@@ -67,9 +67,9 @@ class ExampleAlgorithm(Algorithm):
                 wait_signal.wait()
 
             # DELAY
-            # (there are 2 GUI changes, so divide delay by 2 and sleep 2 times)
+            # (there are 3 GUI changes, so divide delay by 3 and sleep 3 times)
             if self.delay:
-                Utils.sleep_qt(self.delay * 1000 / 2)
+                Utils.sleep_qt(self.delay * 1000 / 3)
 
             # CODE -- highlight "number * 2"
             if self.highlight_enabled:
@@ -81,7 +81,7 @@ class ExampleAlgorithm(Algorithm):
 
             # VISUAL -- update current node to the new value
             if self.viz_enabled:
-                self.viz_window.set_node(i, new_val, g_index=1)
+                self.viz_window.set_node(i, new_val, g_index=1, delay=self.delay*1000 / 3)
 
             # STEP -- wait for next click
             if self.steps_enabled:
@@ -89,7 +89,7 @@ class ExampleAlgorithm(Algorithm):
 
             # DELAY
             if self.delay:
-                Utils.sleep_qt(self.delay * 1000 / 2)
+                Utils.sleep_qt(self.delay * 1000 / 3)
 
             # VISUAL -- un-highlight current node
             if self.viz_enabled:
