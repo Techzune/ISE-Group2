@@ -96,7 +96,7 @@ class ExampleAlgorithm(Algorithm):
                 self.viz_window.highlight_node(i, False, g_index=1)
 
         # GUI: highlight "FINISHED"
-        self.cod_window.highlight_line(2)
+        self.cod_window.highlight_last()
 
         # return the result list
         return result

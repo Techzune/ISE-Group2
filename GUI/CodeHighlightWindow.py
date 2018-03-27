@@ -116,6 +116,13 @@ class CodeHighlightWindow(QMainWindow):
         # highlight the correct one
         self.list_labels[line].setStyleSheet("QLabel { background-color: #FFB6C1; font-weight: bold; }")
 
+    def highlight_last(self):
+        """
+        Highlight the last line of the algorithm
+        """
+        if len(self.list_labels) > 0:
+            self.highlight_line(len(self.list_labels) - 1)
+
     def clear_lines(self):
         """
         Deletes all lines in the line_list layout
