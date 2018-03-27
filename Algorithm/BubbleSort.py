@@ -26,6 +26,7 @@ class BubbleSort(Algorithm):
 
     def sort(self, element):
 
+        # STEP -- wait signal setup
         if self.steps_enabled:
             wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
 
@@ -37,6 +38,8 @@ class BubbleSort(Algorithm):
                 self.cod_window.highlight_line(0)
             if self.steps_enabled:
                 wait_signal.wait()
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 7)
 
             # Go Through the Element in Array
             for i in range(0, n-each-1):
@@ -45,6 +48,8 @@ class BubbleSort(Algorithm):
                     self.cod_window.highlight_line(1)
                 if self.steps_enabled:
                     wait_signal.wait()
+                if self.delay:
+                    Utils.sleep_qt(self.delay * 1000 / 7)
 
                 # After first run last element is sorted so you want to skip going that far
                 if element[i] > element[i+1]:
@@ -53,6 +58,8 @@ class BubbleSort(Algorithm):
                         self.cod_window.highlight_line(2)
                     if self.steps_enabled:
                         wait_signal.wait()
+                    if self.delay:
+                        Utils.sleep_qt(self.delay * 1000 / 7)
 
                     # If i > i+1 then swap it
                     element[i], element[i+1] = element[i+1], element[i]
@@ -61,12 +68,16 @@ class BubbleSort(Algorithm):
                         self.cod_window.highlight_line(3)
                     if self.steps_enabled:
                         wait_signal.wait()
+                    if self.delay:
+                        Utils.sleep_qt(self.delay * 1000 / 7)
 
                     value = False
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(4)
                     if self.steps_enabled:
                         wait_signal.wait()
+                    if self.delay:
+                        Utils.sleep_qt(self.delay * 1000 / 7)
 
             # If array already sorted then Break
             if value is True:
@@ -74,12 +85,23 @@ class BubbleSort(Algorithm):
                     self.cod_window.highlight_line(5)
                 if self.steps_enabled:
                     wait_signal.wait()
+                if self.delay:
+                    Utils.sleep_qt(self.delay * 1000 / 7)
+
                 print("Array already sorted")
+
                 if self.highlight_enabled:
                     self.cod_window.highlight_line(6)
                 if self.steps_enabled:
                     wait_signal.wait()
+                if self.delay:
+                    Utils.sleep_qt(self.delay * 1000 / 7)
                 break
+
+        # VISUAL -- finished
+        if self.highlight_enabled:
+            self.cod_window.highlight_last()
+
         return element
 
 
