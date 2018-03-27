@@ -3,9 +3,8 @@
 # purpose: Backbone of visualization window; displays graphical representation of algorithm
 
 from PyQt5.QtCore import Qt, QLineF
-from PyQt5.QtGui import QPen, QPainter, QFont, QColor
-from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsView, QGraphicsLineItem, QGraphicsTextItem, \
-    QGraphicsItem
+from PyQt5.QtGui import QPen, QPainter, QColor
+from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsScene, QGraphicsView, QGraphicsLineItem, QGraphicsTextItem
 
 import Utils
 

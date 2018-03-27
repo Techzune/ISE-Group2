@@ -7,12 +7,9 @@ import time
 
 import PyQt5
 from PyQt5 import QtCore
-from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QApplication, QMessageBox
-from PyQt5.uic.properties import QtGui
 
 import Utils
-from Algorithm.Algorithm import Algorithm
 from Algorithm.BubbleSort import BubbleSort
 from Algorithm.CountingSort import CountingSort
 from Algorithm.ExampleAlgorithm import ExampleAlgorithm

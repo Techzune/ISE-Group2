@@ -4,8 +4,8 @@
 # At the end of 1st run, the last element in the array will be largest..
 
 
-from Algorithm.Algorithm import Algorithm
 import Utils
+from Algorithm.Algorithm import Algorithm
 from GUI.CodeHighlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
 

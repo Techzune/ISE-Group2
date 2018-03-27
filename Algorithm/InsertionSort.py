@@ -3,11 +3,10 @@
 # purpose: algorithm;
 #cited source: https://www.geeksforgeeks.org/insertion-sort/
 
-from Algorithm.Algorithm import Algorithm
 import Utils
+from Algorithm.Algorithm import Algorithm
 from GUI.CodeHighlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
-
 
 
 class InsertionSort(Algorithm):

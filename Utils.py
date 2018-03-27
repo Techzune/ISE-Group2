@@ -3,7 +3,7 @@
 # purpose: Provides various utility functions to our program
 from random import Random
 
-from PyQt5.QtCore import QEventLoop, QTimer, pyqtSlot
+from PyQt5.QtCore import QEventLoop, QTimer
 from PyQt5.QtWidgets import QMessageBox
 
 

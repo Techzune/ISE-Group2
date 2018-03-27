@@ -2,11 +2,10 @@
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: algorithm;
 
-from Algorithm.Algorithm import Algorithm
 import Utils
+from Algorithm.Algorithm import Algorithm
 from GUI.CodeHighlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
-
 
 
 class CountingSort(Algorithm):
