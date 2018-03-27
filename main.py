@@ -8,7 +8,8 @@ import time
 import PyQt5
 from PyQt5 import QtCore
 from PyQt5.QtCore import QThread
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.uic.properties import QtGui
 
 import Utils
 from Algorithm.Algorithm import Algorithm
@@ -121,15 +122,19 @@ class MainApplication:
                 delay_int = int(options["delay"])
                 alg.set_delay(delay_int)
 
-        # output algorithm running
-        # output the original list
-        print("RUNNING", options["algorithm"])
-        print("\tOrig List:", str(num_list))
-
         # open the GUIs
         self.code_window.show()
         if alg.viz_enabled:
             self.viz_window.show()
+            self.moveGUIs()
+
+        # close the init window
+        self.init_window.close()
+
+        # output algorithm running
+        # output the original list
+        print("RUNNING", options["algorithm"])
+        print("\tOrig List:", str(num_list))
 
         # time the algorithm and get result
         time_start = time.time()
@@ -141,6 +146,42 @@ class MainApplication:
 
         # output the time to sort
         print("\tTime (ms):", time_end - time_start)
+
+        # create a message box
+        m_box = QMessageBox()
+
+        # set the title and text
+        m_box.setWindowTitle("All done!")
+        m_box.setText("Here are the results:\n\nOrig List: {}\nSort List: {}\nTime (ms): {}"
+                      .format(str(result_list), str(result_list), str(time_end-time_start)))
+
+        # start the message box
+        m_box.exec()
+
+    def moveGUIs(self):
+        """
+        Aligns the visualization window and code highlight window
+        """
+
+        # get the frames from the windows
+        viz_frame = self.viz_window.frameGeometry()
+        cod_frame = self.code_window.frameGeometry()
+
+        # create a frame combining the two
+        main_frame = PyQt5.QtCore.QRect(0, 0, viz_frame.width() + cod_frame.width(), viz_frame.height() + cod_frame.height())
+
+        # get the screen's center
+        screen = PyQt5.QtWidgets.QApplication.desktop().screenNumber(PyQt5.QtWidgets.QApplication.desktop().cursor().pos())
+        centerPoint = PyQt5.QtWidgets.QApplication.desktop().screenGeometry(screen).center()
+
+        # align the frames
+        main_frame.moveCenter(centerPoint)
+        viz_frame.moveRight(main_frame.right())
+        cod_frame.moveLeft(main_frame.left())
+
+        # move the windows
+        self.viz_window.move(viz_frame.topLeft())
+        self.code_window.move(cod_frame.topLeft())
 
 
 # PROGRAM START #

@@ -101,9 +101,6 @@ class InitWindow(QMainWindow):
             # run the algorithm
             self.main_application.start_algorithm(options)
 
-            # close the init window
-            self.close()
-
         except Exception as e:
             # if an exception occurs, show the error
             traceback.print_exc()
