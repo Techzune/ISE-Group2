@@ -54,7 +54,7 @@ class ExampleAlgorithm(Algorithm):
             self.viz_window.add_nodes(num_list, g_index=1)
 
         for i, num in enumerate(num_list):
-            # CODE -- highlight "get_number()"
+            # CODE -- highlight "for number in list:"
             if self.highlight_enabled:
                 self.cod_window.highlight_line(0)
 
@@ -71,7 +71,7 @@ class ExampleAlgorithm(Algorithm):
             if self.delay:
                 Utils.sleep_qt(self.delay * 1000 / 3)
 
-            # CODE -- highlight "number * 2"
+            # CODE -- highlight "number *= 2"
             if self.highlight_enabled:
                 self.cod_window.highlight_line(1)
 
