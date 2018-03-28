@@ -128,10 +128,13 @@ class MainApplication:
         # close the init window
         self.init_window.close()
 
+        # store the string of numlist
+        str_numlist = str(num_list)
+
         # output algorithm running
         # output the original list
         print("RUNNING", options["algorithm"])
-        print("\tOrig List:", str(num_list))
+        print("\tOrig List:", str_numlist)
 
         # time the algorithm and get result
         time_start = time.time()
@@ -150,7 +153,7 @@ class MainApplication:
         # set the title and text
         m_box.setWindowTitle("All done!")
         m_box.setText("Here are the results:\n\nOrig List: {}\nSort List: {}\nTime (ms): {}"
-                      .format(str(result_list), str(result_list), str(time_end-time_start)))
+                      .format(str_numlist, str(result_list), str(time_end-time_start)))
 
         # start the message box
         m_box.exec()
