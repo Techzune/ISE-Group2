@@ -30,20 +30,30 @@ class MergeSort(Algorithm):
         L = 0
         R = 0
 
-        #loop
+        #loop while right and left list are not empty
         while len(list_right)>0 and len(list_left)>0:
+            #if left value is greater than right value
             if list_left[L] > list_right[R]:
+                #append right value to merge list
                 merge_list.append(list_right[R])
+                #remove right value from right list
                 list_right.remove(list_right[R])
 
+            #else if right value is greater than left value
             else:
+                #append left value to merge list
                 merge_list.append(list_left[L])
+                #remove left value from left list
                 list_left.remove(list_left[L])
 
+        #if right list is empty
         if len(list_right)<=0:
+            #add left list to merge list
             merge_list = merge_list + list_left
 
+        #elif left list is empty
         elif len(list_left)<=0:
+            #add right list to merge list
             merge_list = merge_list + list_right
 
         return merge_list
@@ -58,6 +68,7 @@ class MergeSort(Algorithm):
         sortedLeft = []
         sortedRight = []
 
+        #if list has more than 2 values
         if len(num_list) >= 2:
 
             if self.highlight_enabled:
@@ -65,6 +76,7 @@ class MergeSort(Algorithm):
             if self.steps_enabled:
                 wait_signal.wait()
 
+            #split list; create left list
             listLeft = num_list[:len(num_list)//2]
 
             if self.highlight_enabled:
@@ -72,6 +84,7 @@ class MergeSort(Algorithm):
             if self.steps_enabled:
                 wait_signal.wait()
 
+            #split list; create right list
             listRight = num_list[len(num_list)//2:]
 
             if self.highlight_enabled:
