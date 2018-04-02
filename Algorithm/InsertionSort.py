@@ -36,6 +36,7 @@ class InsertionSort(Algorithm):
             if self.steps_enabled:
                 wait_signal.wait()
 
+            # current_value variable refers to [i] in the array used for this algorithm
             current_value = num_list[i]
 
             if self.highlight_enabled:
@@ -43,9 +44,7 @@ class InsertionSort(Algorithm):
             if self.steps_enabled:
                 wait_signal.wait()
 
-            # Move elements of num_list[0..i-1], that are
-            # greater than current_value, to one position ahead
-            # of their current position
+            # j is decremented of i
             j = i - 1
 
             if self.highlight_enabled:
@@ -53,6 +52,9 @@ class InsertionSort(Algorithm):
             if self.steps_enabled:
                 wait_signal.wait()
 
+            # Move elements of num_list[0..i-1], that are
+            # greater than current_value, to one position ahead
+            # of their current position
             while j >= 0 and current_value < num_list[j]:
 
                 if self.highlight_enabled:
@@ -60,6 +62,7 @@ class InsertionSort(Algorithm):
                 if self.steps_enabled:
                     wait_signal.wait()
 
+                # j is incremented
                 num_list[j + 1] = num_list[j]
 
                 if self.highlight_enabled:
@@ -67,6 +70,7 @@ class InsertionSort(Algorithm):
                 if self.steps_enabled:
                     wait_signal.wait()
 
+                # j is decremented
                 j -= 1
 
                 if self.highlight_enabled:
@@ -74,6 +78,7 @@ class InsertionSort(Algorithm):
                 if self.steps_enabled:
                     wait_signal.wait()
 
+            # j is incremented, j and current_value are set equal to each other
             num_list[j + 1] = current_value
 
             if self.highlight_enabled:
@@ -81,6 +86,7 @@ class InsertionSort(Algorithm):
             if self.steps_enabled:
                 wait_signal.wait()
 
+        # return the sorted list
         return num_list
 
 
