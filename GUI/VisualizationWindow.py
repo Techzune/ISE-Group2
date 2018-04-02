@@ -40,6 +40,9 @@ class VisualizationWindow(QGraphicsView):
         # holds if we are actually being used
         self.do_show = False
 
+        # counts the number of graphs in the view
+        self._graph_count = 0
+
     def resizeEvent(self, event):
         """
         Override resizeEvent to automatically center graphs
@@ -61,7 +64,7 @@ class VisualizationWindow(QGraphicsView):
         Centers the view on the center of the scene
         """
 
-        rect = self._scene.sceneRect()
+        rect = self._scene.itemsBoundingRect()
         self.centerOn(rect.center())
 
         self.fitInView(rect, Qt.KeepAspectRatio)
@@ -81,7 +84,39 @@ class VisualizationWindow(QGraphicsView):
             self._graph_list.append(Graph(self, self._scene, 0, color, name))
         else:
             # space out the graph
-            self._graph_list.append(Graph(self, self._scene, g_index + NODE_RADIUS * 3, color, name))
+            last = self._graph_list[-1]
+            self._graph_list.append(Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
+
+        self._graph_count += 1
+
+    def remove_graph(self, g_index, adjust_pos=True):
+        """
+        Removes a graph from the view
+
+        :param g_index: the graph's index (starts at 0)
+        :param adjust_pos: True, if the gap should be fixed
+        """
+
+        # run the delete process on the graph
+        self._graph_list[g_index].delete()
+        self._graph_list[g_index] = None
+        self._graph_count -= 1
+
+        # adjust the other graphs, if specified
+        if adjust_pos:
+            for i in range(g_index + 1, self._graph_count + 1):
+                graph = self._graph_list[i]
+
+                if self._graph_count - i - 1 == 0:
+                    graph.set_y_pos(0)
+                else:
+                    last = self._graph_list[i-1]
+                    graph.set_y_pos(last.y() + NODE_RADIUS * 3)
+
+        # update the view
+        self._scene.update()
+        self.viewport().update()
+        self.center_all()
 
     def validate_graph(self, g_index):
         """
@@ -201,6 +236,37 @@ class Graph:
         self._text.setDefaultTextColor(color)
         self._text.setPos(-NODE_RADIUS, self._y_pos - NODE_RADIUS - 20)
         self._scene.addItem(self._text)
+
+    def y(self):
+        """
+        Gets the y-position of the graph
+        """
+        return self._y_pos
+
+    def delete(self):
+        """
+        Removes the graph's nodes, edges, and text
+        """
+        # delete the nodes
+        for node in self._node_list:
+            node.delete()
+
+        # delete the text
+        self._scene.removeItem(self._text)
+
+    def set_y_pos(self, y_pos):
+        """
+        Moves the graph to the specified Y position
+        :param y_pos: the y-coordinate to move to
+        """
+        # update graph position
+        self._y_pos = y_pos
+        self._text.setPos(-NODE_RADIUS, y_pos - NODE_RADIUS - 20)
+
+        # update node positions
+        for node in self._node_list:
+            node.setPos(node.x(), y_pos)
+            node.adjust_edges()
 
     def add_node(self, text):
         """
@@ -360,11 +426,38 @@ class Node(QGraphicsEllipseItem):
         # draw the text for the circle
         painter.drawText(self.rect(), Qt.AlignCenter | Qt.TextSingleLine, self.text())
 
+    def adjust_edges(self):
+        """
+        Updates the position of edges in the edge list
+        """
+        for edge in self.edges:
+            edge.adjust()
+
+    def delete(self):
+        """
+        Removes the edges connected to the node and removes the node from the scene
+        :return:
+        """
+
+        # delete the edges
+        for edge in self.edges:
+            if edge is not None:
+                edge.delete()
+
+        # delete self
+        self.scene().removeItem(self)
+
     def add_edge(self, edge):
         """
         Stores an edge inside the node's edge list
         """
         self.edges.append(edge)
+
+    def remove_edge(self, edge):
+        """
+        Removes an edge from the node's edge list
+        """
+        self.edges.remove(edge)
 
     def text(self):
         """
@@ -446,3 +539,11 @@ class Edge(QGraphicsLineItem):
         # draw the line
         self.prepareGeometryChange()
         self.setLine(QLineF(self.destination.pos(), self.source.pos()))
+
+    def delete(self):
+        """
+        Deletes the edge from node edge lists and removes itself from scene
+        """
+        self.source.remove_edge(self)
+        self.destination.remove_edge(self)
+        self.scene().removeItem(self)
