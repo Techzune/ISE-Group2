@@ -1,7 +1,6 @@
-for a in range(n):
-num_list[a] += 1
-i = 0
-for a in range(m):
-    for c in range(num_list[a]):
-        num_list[i] = a
-        i += 1
+for a in num_list:
+    count[a-minimum] += 1
+for i in range(minimum, maximum+1):
+    if count[i-minimum] > 0:
+        for j in range(0, count[i-minimum]):
+            append(i)
