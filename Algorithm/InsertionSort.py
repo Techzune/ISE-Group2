@@ -1,7 +1,7 @@
 # title: InsertionSort
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: algorithm;
-#cited source: https://www.geeksforgeeks.org/insertion-sort/
+# cited source: https://www.geeksforgeeks.org/insertion-sort/
 
 import Utils
 from Algorithm.Algorithm import Algorithm
@@ -24,7 +24,6 @@ class InsertionSort(Algorithm):
 
         if self.viz_enabled:
             # create the graphs
-            self.viz_window.add_graph(g_index=0, name="Original")
             self.viz_window.add_nodes(num_list, g_index=0)
 
         if self.steps_enabled:
@@ -81,8 +80,8 @@ class InsertionSort(Algorithm):
                 num_list[j + 1] = num_list[j]
                 if self.viz_enabled:
                     self.viz_window.highlight_node(j, True)
-                    self.viz_window.highlight_node(j+1, True)
-                    self.viz_window.swap_nodes(j, j+1)
+                    self.viz_window.highlight_node(j + 1, True)
+                    self.viz_window.swap_nodes(j, j + 1)
                     self.viz_window.highlight_node(j, False)
                     self.viz_window.highlight_node(j + 1, False)
                 if self.highlight_enabled:
@@ -105,7 +104,7 @@ class InsertionSort(Algorithm):
             num_list[j + 1] = current_value
             if self.viz_enabled:
                 self.viz_window.highlight_node(j + 1, True)
-                self.viz_window.set_node(j+1,current_value)
+                self.viz_window.set_node(j + 1, current_value)
                 self.viz_window.highlight_node(j + 1, False)
             if self.highlight_enabled:
                 self.cod_window.highlight_line(6)
@@ -117,10 +116,9 @@ class InsertionSort(Algorithm):
         # return the sorted list
         return num_list
 
-
 # Driver code to test above
-#num_list = [12, 11, 13, 5, 6]
-#insertionSort(num_list)
-#print ("Sorted array is:")
-#for i in range(len(num_list)):
+# num_list = [12, 11, 13, 5, 6]
+# insertionSort(num_list)
+# print ("Sorted array is:")
+# for i in range(len(num_list)):
 #  print ("%d" %num_list[i])
