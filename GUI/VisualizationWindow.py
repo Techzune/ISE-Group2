@@ -12,7 +12,7 @@ import Utils
 NODE_RADIUS = 22
 
 # the colors of graphs
-GRAPH_COLORS = [Qt.black, Qt.blue, Qt.red, Qt.yellow, Qt.green]
+GRAPH_COLORS = [Qt.black, Qt.blue, Qt.red, Qt.green]
 
 
 class VisualizationWindow(QGraphicsView):
@@ -77,7 +77,7 @@ class VisualizationWindow(QGraphicsView):
         :param name: the display name of the graph
         """
 
-        color = GRAPH_COLORS[g_index % 5]
+        color = GRAPH_COLORS[(self._graph_count + 1) % 4]
         last = self._get_last_graph()
 
         # if this is the first graph
@@ -94,13 +94,13 @@ class VisualizationWindow(QGraphicsView):
                 self._graph_list.append(Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
 
         self._graph_count += 1
+        self._adjust_graphs()
 
-    def remove_graph(self, g_index, adjust_pos=True):
+    def remove_graph(self, g_index):
         """
         Removes a graph from the view
 
         :param g_index: the graph's index (starts at 0)
-        :param adjust_pos: True, if the gap should be fixed
         """
 
         # run the delete process on the graph
@@ -108,21 +108,8 @@ class VisualizationWindow(QGraphicsView):
         self._graph_list[g_index] = None
         self._graph_count -= 1
 
-        # adjust the other graphs, if specified
-        if adjust_pos:
-            for i in range(g_index + 1, self._graph_count + 1):
-                graph = self._graph_list[i]
-
-                if self._graph_count - i - 1 == 0:
-                    graph.set_y_pos(0)
-                else:
-                    last = self._get_prev_graph(i)
-                    graph.set_y_pos(last.y() + NODE_RADIUS * 3)
-
         # update the view
-        self._scene.update()
-        self.viewport().update()
-        self.center_all()
+        self._adjust_graphs()
 
     def validate_graph(self, g_index):
         """
@@ -243,6 +230,34 @@ class VisualizationWindow(QGraphicsView):
                 return value
         return None
 
+    def _adjust_graphs(self):
+        """
+        Re-adjusts the y-positions of graphs
+        """
+
+        # keep track of how many lists we've found
+        idx = 0
+
+        # iterate through the objects in the list
+        for graph in self._graph_list:
+            if graph is None:
+                # skip the current object if it's None
+                continue
+
+            # determine if this is the first graph or after graphs
+            if idx == 0:
+                graph.set_y_pos(0)
+            else:
+                last = self._graph_list[idx-1]
+                graph.set_y_pos(last.y() + NODE_RADIUS * 3)
+
+            # update idx
+            idx += 1
+
+        # fix the scene view
+        self._scene.update()
+        self.viewport().update()
+        self.center_all()
 
 class Graph:
     """
