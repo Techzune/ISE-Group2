@@ -8,7 +8,6 @@ from GUI.CodeHighlightWindow import CodeHighlightWindow
 from GUI.VisualizationWindow import VisualizationWindow
 
 
-
 class QuickSort(Algorithm):
 
     def __init__(self, viz_window: VisualizationWindow, cod_window: CodeHighlightWindow):
