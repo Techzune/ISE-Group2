@@ -78,14 +78,20 @@ class VisualizationWindow(QGraphicsView):
         """
 
         color = GRAPH_COLORS[g_index % 5]
+        last = self._get_last_graph()
 
-        if g_index == 0:
+        # if this is the first graph
+        if g_index == 0 or last is None:
             # place graph at point 0
             self._graph_list.append(Graph(self, self._scene, 0, color, name))
+
         else:
             # space out the graph
-            last = self._graph_list[-1]
-            self._graph_list.append(Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
+            try:
+                self._graph_list.insert(g_index, Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
+            except Exception:
+                # the graph never existed, so append
+                self._graph_list.append(Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
 
         self._graph_count += 1
 
@@ -110,7 +116,7 @@ class VisualizationWindow(QGraphicsView):
                 if self._graph_count - i - 1 == 0:
                     graph.set_y_pos(0)
                 else:
-                    last = self._graph_list[i-1]
+                    last = self._get_prev_graph(i)
                     graph.set_y_pos(last.y() + NODE_RADIUS * 3)
 
         # update the view
@@ -216,6 +222,26 @@ class VisualizationWindow(QGraphicsView):
 
         # swap the nodes in the graph
         graph.swap_nodes(a_idx, b_idx, highlight, delay)
+
+    def _get_prev_graph(self, g_index):
+        """
+        Returns the previous graph
+        """
+        r_idx = len(self._graph_list) - g_index - 1
+        for index, value in enumerate(reversed(self._graph_list)):
+            if index > r_idx and value is not None:
+                return value
+
+        return None
+
+    def _get_last_graph(self):
+        """
+        Returns the last index of the graph list that isn't None
+        """
+        for index, value in enumerate(reversed(self._graph_list)):
+            if value is not None:
+                return value
+        return None
 
 
 class Graph:
