@@ -175,7 +175,10 @@ class VisualizationWindow(QGraphicsView):
         graph = self.validate_graph(g_index)
 
         # change the highlight of the node
-        graph.highlight_node(index, value)
+        try:
+            graph.highlight_node(index, value)
+        except IndexError:
+            raise IndexError("Graph {} does not have node at index {}".format(g_index, index))
 
     def set_node(self, index: int, value, g_index: int = 0, highlight: bool = True, delay: int = 500):
         """
@@ -191,8 +194,11 @@ class VisualizationWindow(QGraphicsView):
         # validate the graph
         graph = self.validate_graph(g_index)
 
-        # change the highlight of the node
-        graph.set_node(index, value, highlight, delay)
+        # change the value of the node
+        try:
+            graph.set_node(index, value, highlight, delay)
+        except IndexError:
+            raise IndexError("Graph {} does not have node at index {}".format(g_index, index))
 
     def swap_nodes(self, a_idx: int, b_idx: int, highlight: bool = True, g_index: int = 0, delay: int = 500):
         """
