@@ -241,8 +241,8 @@ class VisualizationWindow(QGraphicsView):
         Re-adjusts the y-positions of graphs
         """
 
-        # keep track of how many lists we've found
-        idx = 0
+        # keep track of the last graph
+        last = None
 
         # iterate through the objects in the list
         for graph in self._graph_list:
@@ -251,14 +251,13 @@ class VisualizationWindow(QGraphicsView):
                 continue
 
             # determine if this is the first graph or after graphs
-            if idx == 0:
+            if last is None:
                 graph.set_y_pos(0)
             else:
-                last = self._graph_list[idx-1]
                 graph.set_y_pos(last.y() + NODE_RADIUS * 3)
 
-            # update idx
-            idx += 1
+            # update last
+            last = graph
 
         # fix the scene view
         self._scene.update()
