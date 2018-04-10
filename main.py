@@ -77,8 +77,6 @@ class MainApplication:
             alg = MergeSort(self.viz_window, self.code_window)
         elif options["algorithm"] == "QuickSort":
             alg = QuickSort(self.viz_window, self.code_window)
-        elif options["algorithm"] == "ExampleAlgorithm":
-            alg = ExampleAlgorithm(self.viz_window, self.code_window)
 
         # create an empty int list
         num_list = []
