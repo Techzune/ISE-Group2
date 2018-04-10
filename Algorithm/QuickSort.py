@@ -34,6 +34,23 @@ class QuickSort(Algorithm):
 
     def sort(self, num_list):
 
+
+
+        # dah big debug
+        self.viz_window.add_graph(0, "number 0")
+        self.viz_window.add_graph(1, "number 1")
+        self.viz_window.add_graph(2, "number 2")
+        self.viz_window.add_graph(3, "number 3")
+        self.viz_window.remove_graph(3)
+        self.viz_window.add_graph(3, "second 3")
+        self.viz_window.remove_graph(2)
+        self.viz_window.add_graph(2, "second 2")
+        self.viz_window.remove_graph(1)
+        self.viz_window.add_graph(1, "second 1")
+        Utils.sleep_qt(2000)
+
+
+
         # tracking depth
         self.depth += 1
 
@@ -57,14 +74,14 @@ class QuickSort(Algorithm):
             if self.depth == 0:
                 self.viz_window.add_graph(0, "Main Graph")
                 self.viz_window.add_nodes(num_list, 0)
-                self.viz_window.add_graph((self.depth * 3) - 2, "Left Bucket " + str(self.depth + 1))
-                self.viz_window.add_graph((self.depth * 3) - 2, "Equals Bucket " + str(self.depth + 1))
-                self.viz_window.add_graph((self.depth * 3) - 2, "Right Bucket " + str(self.depth + 1))
+                self.viz_window.add_graph(((self.depth + 1) * 3) - 2, "Left Bucket " + str(self.depth + 1))
+                self.viz_window.add_graph(((self.depth + 1) * 3) - 1, "Equals Bucket " + str(self.depth + 1))
+                self.viz_window.add_graph(((self.depth + 1) * 3) - 0, "Right Bucket " + str(self.depth + 1))
 
             if self.depth > 0:
-                self.viz_window.add_graph((self.depth * 3) - 2, "Left Bucket " + str(self.depth + 1))
-                self.viz_window.add_graph((self.depth * 3) - 2, "Equals Bucket " + str(self.depth + 1))
-                self.viz_window.add_graph((self.depth * 3) - 2, "Right Bucket " + str(self.depth + 1))
+                self.viz_window.add_graph(((self.depth + 1) * 3) - 2, "Left Bucket " + str(self.depth + 1))
+                self.viz_window.add_graph(((self.depth + 1) * 3) - 1, "Equals Bucket " + str(self.depth + 1))
+                self.viz_window.add_graph(((self.depth + 1) * 3) - 0, "Right Bucket " + str(self.depth + 1))
 
         # VISUAL -- highlight current node
         if self.viz_enabled:
@@ -89,9 +106,10 @@ class QuickSort(Algorithm):
             cur_bucket = 0
 
 
-        # DEBUGDEBUGDEUBKDJFLDAJFKJ
+        # DEBUG DEBUGDEUBKDJFLDAJFKJ
         print("Cur_Bucket " + str(cur_bucket))
         print("Depth: " + str(self.depth))
+
         """        
         if needed
         create the separation of the buckets in visualization
@@ -303,6 +321,19 @@ class QuickSort(Algorithm):
             # VISUALS -- Moving everything up
             if self.viz_enabled:
 
+                # debugdebugdebug debug
+                print("cur_bucket before delete: " + str(cur_bucket))
+
+
+
+
+
+
+
+
+
+
+
                 self.viz_window.remove_graph(cur_bucket)
                 self.viz_window.add_graph(cur_bucket, "KENTUCKY FRIED CHICKEN")
                 if less_output:
@@ -327,8 +358,15 @@ class QuickSort(Algorithm):
         else:
 
             """
-            Actions for when empty list is passed
+            Actions for when empty or one element list is passed
             """
+            # don't need to make anything else
+            Utils.sleep_qt(self.delay * 1000 /2)
+            # delete the graphs created
+            # deletion of old, useless buckets
+            self.viz_window.remove_graph((self.depth + 1) * 3)  # Useless right bucket
+            self.viz_window.remove_graph(((self.depth + 1) * 3) - 1)  # Useless equal bucket
+            self.viz_window.remove_graph(((self.depth + 1) * 3) - 2)  # Useless left bucket
 
             # tracking depth
             self.depth -= 1
