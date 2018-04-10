@@ -31,7 +31,9 @@ class BubbleSort(Algorithm):
             wait_signal = Utils.WaitSignal(self.cod_window.signal_step)
 
         # VISUAL -- put numbers in visual gui
-        self.viz_window.add_nodes(num_list)
+        if self.viz_enabled:
+            # create the graphs
+            self.viz_window.add_graph(g_index=0, name="Original")
 
         # the length of the list
         N = len(num_list)
