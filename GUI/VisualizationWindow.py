@@ -12,7 +12,7 @@ import Utils
 NODE_RADIUS = 22
 
 # the colors of graphs
-GRAPH_COLORS = [Qt.black, Qt.blue, Qt.red, Qt.green]
+GRAPH_COLORS = [Qt.blue, Qt.black, Qt.red, Qt.green]
 
 
 class VisualizationWindow(QGraphicsView):
