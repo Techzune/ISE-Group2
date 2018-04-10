@@ -4,7 +4,7 @@
 import traceback
 
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 from PyQt5.uic import loadUi
 
 import Utils
@@ -81,6 +81,24 @@ class InitWindow(QMainWindow):
             elif index == 1:
                 # "Random list of size N" is selected
                 options["random"] = self.input_source.text()
+
+                # check if N > 10,000
+                if (int(options["random"])) > 10000:
+                    # throw a message
+                    print("List cannot be greater than 10,000")
+
+                    # create a message box
+                    m_box = QMessageBox()
+
+                    # set the title and text
+                    m_box.setWindowTitle("Nope!")
+                    m_box.setText("No support for a list larger than 10,000 elements")
+
+                    # start the message box
+                    m_box.exec()
+
+                    return
+
             elif index == 2:
                 # "Manual number input" is selected
                 options["manual"] = self.input_source.text()

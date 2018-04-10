@@ -117,6 +117,37 @@ class MainApplication:
                 delay_int = int(options["delay"])
                 alg.set_delay(delay_int)
 
+        if len(num_list) > 10000:
+            # SAFETY - does not accept list of more than 10,000 elements
+
+            print("SORT CANCELLED: List cannot be more than 10,000 elements")
+
+            if alg.viz_enabled:
+                # create a message box
+                m_box = QMessageBox()
+
+                # set the title and text
+                m_box.setWindowTitle("Nope!")
+                m_box.setText("List cannot be larger than 10,000 elements")
+
+                # start the message box
+                m_box.exec()
+            return
+        elif len(num_list) > 500 and alg.viz_enabled:
+            # SAFETY - does not show visualization with more than 500 nodes
+
+            print("SORT CANCELLED: Cannot show visualization with more than 500 nodes")
+            # create a message box
+            m_box = QMessageBox()
+
+            # set the title and text
+            m_box.setWindowTitle("Nope!")
+            m_box.setText("Cannot safely show visualization with more than 500 nodes")
+
+            # start the message box
+            m_box.exec()
+            return
+
         # open the GUIs
         self.code_window.show()
         if alg.viz_enabled:
@@ -150,8 +181,10 @@ class MainApplication:
 
         # set the title and text
         m_box.setWindowTitle("All done!")
-        m_box.setText("Here are the results:\n\nOrig List: {}\nSort List: {}\nTime (ms): {}"
-                      .format(str_numlist, str(result_list), str(time_end-time_start)))
+        if len(num_list) > 1000:
+            m_box.setText("Here are the results:\n\nLISTS TOO BIG TO DISPLAY: {}\nTime (ms): {}".format(len(num_list), time_end-time_start))
+        else:
+            m_box.setText("Here are the results:\n\nOrig List: {}\nSort List: {}\nTime (ms): {}".format(str_numlist, str(result_list), str(time_end-time_start)))
 
         # start the message box
         m_box.exec()
