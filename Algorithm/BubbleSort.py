@@ -33,7 +33,10 @@ class BubbleSort(Algorithm):
         # VISUAL -- put numbers in visual gui
         if self.viz_enabled:
             # create the graphs
-            self.viz_window.add_graph(g_index=0, name="Original")
+            self.viz_window.add_graph(g_index=0, name="Sorted")
+            self.viz_window.add_graph(g_index=1, name="Original")
+            self.viz_window.add_nodes(num_list, 0)
+            self.viz_window.add_nodes(num_list, 1)
 
         # the length of the list
         N = len(num_list)
