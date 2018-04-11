@@ -81,7 +81,7 @@ class VisualizationWindow(QGraphicsView):
         last = self._get_last_graph()
 
         # if this is the first graph
-        if g_index == 0 or last is None:
+        if last is None:
             # place graph at point 0
             self._graph_list.append(Graph(self, self._scene, 0, color, name))
 
