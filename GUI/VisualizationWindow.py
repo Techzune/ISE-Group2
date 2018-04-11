@@ -88,7 +88,11 @@ class VisualizationWindow(QGraphicsView):
         else:
             # space out the graph
             try:
-                self._graph_list.insert(g_index, Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
+                if self._graph_list[g_index] is None:
+                    self._graph_list[g_index] = Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name)
+                else:
+                    self._graph_list.insert(g_index, Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
+
             except Exception:
                 # the graph never existed, so append
                 self._graph_list.append(Graph(self, self._scene, last.y() + NODE_RADIUS * 3, color, name))
