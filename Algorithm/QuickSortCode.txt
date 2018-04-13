@@ -1,4 +1,6 @@
 Setting Pivot
-less_than.append(i)
-equals.append(i)
-greater_than.append(i)
+Sorting the List
+    Comparing Node to Pivot
+    Adding Node to Proper Bucket (Based on Pivot)
+        Making more buckets (Recursion)
+    Putting Buckets back together

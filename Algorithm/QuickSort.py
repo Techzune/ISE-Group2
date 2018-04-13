@@ -34,23 +34,6 @@ class QuickSort(Algorithm):
 
     def sort(self, num_list):
 
-
-
-        # dah big debug
-        self.viz_window.add_graph(0, "number 0")
-        self.viz_window.add_graph(1, "number 1")
-        self.viz_window.add_graph(2, "number 2")
-        self.viz_window.add_graph(3, "number 3")
-        self.viz_window.remove_graph(3)
-        self.viz_window.add_graph(3, "second 3")
-        self.viz_window.remove_graph(2)
-        self.viz_window.add_graph(2, "second 2")
-        self.viz_window.remove_graph(1)
-        self.viz_window.add_graph(1, "second 1")
-        Utils.sleep_qt(2000)
-
-
-
         # tracking depth
         self.depth += 1
 
@@ -79,14 +62,10 @@ class QuickSort(Algorithm):
                 self.viz_window.add_graph(((self.depth + 1) * 3) - 0, "Right Bucket " + str(self.depth + 1))
 
             if self.depth > 0:
+
                 self.viz_window.add_graph(((self.depth + 1) * 3) - 2, "Left Bucket " + str(self.depth + 1))
                 self.viz_window.add_graph(((self.depth + 1) * 3) - 1, "Equals Bucket " + str(self.depth + 1))
                 self.viz_window.add_graph(((self.depth + 1) * 3) - 0, "Right Bucket " + str(self.depth + 1))
-
-        # VISUAL -- highlight current node
-        if self.viz_enabled:
-            # self.viz_window.highlight_node(i, True, self.run)
-            pass
 
         # STEP -- wait for next click
         if self.steps_enabled:
@@ -94,7 +73,7 @@ class QuickSort(Algorithm):
 
         # DELAY
         # (there are 2 GUI changes, so divide delay by 2 and sleep 2 times)
-        # TO BE CALIBRATED
+        # delay after graph creations
         if self.delay:
             Utils.sleep_qt(self.delay * 1000 / 2)
 
@@ -105,28 +84,12 @@ class QuickSort(Algorithm):
         else:
             cur_bucket = 0
 
-
-        # DEBUG DEBUGDEUBKDJFLDAJFKJ
-        print("Cur_Bucket " + str(cur_bucket))
-        print("Depth: " + str(self.depth))
-
-        """        
-        if needed
-        create the separation of the buckets in visualization
-        PROBLEM: creating the bucket separation would cause difficulties
-        when re-merging the buckets
-        """
-
         # there are actually numbers to sort
         if len(num_list) > 1:
 
             # CODE -- highlight "finding pivot"
             if self.highlight_enabled:
                 self.cod_window.highlight_line(0)
-            if self.steps_enabled:
-                wait_signal.wait()
-            if self.delay:
-                Utils.sleep_qt(self.delay * 1000 / 2)
 
             # ----------------
             # SETTING UP PIVOT
@@ -150,21 +113,20 @@ class QuickSort(Algorithm):
 
                 # checking to see which one is the middle value
                 if second <= first < third or third <= first < second:
+                    # first entry of list is pivot
                     pivot = first
 
                     # gui & delay
                     if self.viz_enabled:
                         self.viz_window.highlight_node(0, False, cur_bucket)
-                        Utils.sleep_qt(self.delay * 1000 / 2)
                         self.viz_window.highlight_node(0, True, cur_bucket)
                     if self.steps_enabled:
                         wait_signal.wait()
-
-                    # no need to delay if visuals already delayed
-                    if self.delay and not self.viz_enabled:
+                    if self.delay:
                         Utils.sleep_qt(self.delay * 1000 / 2)
 
                 if first <= second < third or third <= second < first:
+                    # middle entry of list is pivot
                     pivot = second
 
                     # gui & delay
@@ -177,6 +139,7 @@ class QuickSort(Algorithm):
                         Utils.sleep_qt(self.delay * 1000 / 2)
 
                 if first <= third < second or second <= third < first:
+                    # last entry of list is pivot
                     pivot = third
 
                     # gui & delay
@@ -196,36 +159,55 @@ class QuickSort(Algorithm):
             # ----------------------------
             # dumping some numbers into some buckets with labels
 
+            # CODE - Highlight the Start of our Sorting
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(1)
+
             # counter
             k = -1
             for i in num_list:
-                # counter
+                # counter counting
                 k += 1
+
+                # CODE - comparing number to pivot
+                if self.highlight_enabled:
+                    self.cod_window.highlight_line(2)
 
                 # VISUAL -- highlighting the number being looked at
                 # Blinks for when it is looking at the pivot
                 if self.viz_enabled:
+                    self.viz_window.highlight_node(k, False, cur_bucket)
+                    Utils.sleep_qt(self.delay * 1000 / 3 / 3)
+                    self.viz_window.highlight_node(k, True, cur_bucket)
+                    Utils.sleep_qt(self.delay * 1000 / 3 / 3)
+                    self.viz_window.highlight_node(k, False, cur_bucket)
+                    Utils.sleep_qt(self.delay * 1000 / 3 / 3)
+                    self.viz_window.highlight_node(k, True, cur_bucket)
 
-                    self.viz_window.highlight_node(k, False, cur_bucket)
-                    Utils.sleep_qt(self.delay * 1000 / 2)
-                    self.viz_window.highlight_node(k, True, cur_bucket)
-                    Utils.sleep_qt(self.delay * 1000 / 2)
-                    self.viz_window.highlight_node(k, False, cur_bucket)
-                    Utils.sleep_qt(self.delay * 1000 / 2)
-                    self.viz_window.highlight_node(k, True, cur_bucket)
+                    # These are used for keeping track of the range of new lists being made
                     left = 0
                     right = 0
                     equal = 0
+
+                # delay based around 3 total delays for moving things around buckets
+                # ignoring the blinking of the nodes
+                if self.delay:
+                    Utils.sleep_qt(self.delay * 1000 / 3)
 
                 # dumps numbers less than the pivot into a bucket
 
                 if i < pivot:
                     less_than.append(i)
 
+                    # CODE - placing into bucket
                     if self.highlight_enabled:
-                        self.cod_window.highlight_line(1)
+                        self.cod_window.highlight_line(3)
+
+                    # delay & gui
                     if self.steps_enabled:
                         wait_signal.wait()
+                    if self.delay:
+                        Utils.sleep_qt(self.delay * 1000 / 3)
                     if self.viz_enabled:
                         self.viz_window.highlight_node(k, False, cur_bucket)
                         self.viz_window.add_node(i, ((self.depth + 1) * 3) - 2)
@@ -236,10 +218,15 @@ class QuickSort(Algorithm):
                 if i == pivot:
                     equals.append(i)
 
+                    # CODE - placing into bucket
                     if self.highlight_enabled:
-                        self.cod_window.highlight_line(2)
+                        self.cod_window.highlight_line(3)
+
+                    # delay & gui
                     if self.steps_enabled:
                         wait_signal.wait()
+                    if self.delay:
+                        Utils.sleep_qt(self.delay * 1000 / 3)
                     if self.viz_enabled:
                         self.viz_window.add_node(i, ((self.depth + 1) * 3) - 1)
                         equal += 1
@@ -249,10 +236,15 @@ class QuickSort(Algorithm):
                 if i > pivot:
                     greater_than.append(i)
 
+                    # CODE - placing into bucket
                     if self.highlight_enabled:
                         self.cod_window.highlight_line(3)
+
+                    # delay & gui
                     if self.steps_enabled:
                         wait_signal.wait()
+                    if self.delay:
+                        Utils.sleep_qt(self.delay * 1000 / 3)
                     if self.viz_enabled:
                         self.viz_window.highlight_node(k, False, cur_bucket)
                         self.viz_window.add_node(i, ((self.depth + 1) * 3))
@@ -266,6 +258,8 @@ class QuickSort(Algorithm):
             # Less Than Bucket
             self.which_bucket = 2
             if self.viz_enabled:
+                # blinks current node being worked with
+                # this is for when the pivot is the one being selected
                 if left > 0:
                     for j in range(0, left - 1):
                         self.viz_window.highlight_node(j, True, cur_bucket + 1)
@@ -278,14 +272,25 @@ class QuickSort(Algorithm):
                     Utils.sleep_qt(self.delay * 1000 / 2 / 3)
                     for j in range(0, left - 1):
                         self.viz_window.highlight_node(j, False, cur_bucket + 1)
+
+            # CODE - Highlight line that signifies recursive call
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(4)
+
+            # Sorting the less_than bucket
             less_output = self.sort(less_than)
+
+            # Correcting depth
             self.depth -= 1
 
-            # !!self.viz_window.highlight_node()!!
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
 
             # Equals Bucket
             self.which_bucket = 1
             if self.viz_enabled:
+                # blinks current node being worked with
+                # this is for when the pivot is the one being selected
                 if equal > 0:
                     for j in range(0, left - 1):
                         self.viz_window.highlight_node(j, True, cur_bucket + 1)
@@ -300,9 +305,14 @@ class QuickSort(Algorithm):
                         self.viz_window.highlight_node(j, False, cur_bucket + 1)
             eq_output = equals
 
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
+
             # Greater Than Bucket
             self.which_bucket = 0
             if self.viz_enabled:
+                # blinks current node being worked with
+                # this is for when the pivot is the one being selected
                 if right > 0:
                     for j in range(0, left - 1):
                         self.viz_window.highlight_node(j, True, cur_bucket + 1)
@@ -315,41 +325,61 @@ class QuickSort(Algorithm):
                     Utils.sleep_qt(self.delay * 1000 / 2 / 3)
                     for j in range(0, left - 1):
                         self.viz_window.highlight_node(j, False, cur_bucket + 1)
+
+            # CODE - Highlight line that signifies recursive call
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(4)
+
+            # sorting the greater_than bucket
             great_output = self.sort(greater_than)
+
+            # correcting depth
             self.depth -= 1
+
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
 
             # VISUALS -- Moving everything up
             if self.viz_enabled:
 
-                # debugdebugdebug debug
-                print("cur_bucket before delete: " + str(cur_bucket))
-
-
-
-
-
-
-
-
-
-
-
                 self.viz_window.remove_graph(cur_bucket)
-                self.viz_window.add_graph(cur_bucket, "KENTUCKY FRIED CHICKEN")
+
+                if self.depth == 0:
+                    self.viz_window.add_graph(0, "Sorted List")
+                else:
+                    self.viz_window.add_graph(cur_bucket, "Sorted Sub-list")
+
+                # adding the nodes to our new buckets
                 if less_output:
                     Utils.sleep_qt(self.delay * 1000 / 2 / 3)
                     self.viz_window.add_nodes(less_output, cur_bucket)
+                    if self.steps_enabled:
+                        wait_signal.wait()
                 if eq_output:
                     Utils.sleep_qt(self.delay * 1000 / 2 / 3)
                     self.viz_window.add_nodes(eq_output, cur_bucket)
+                    if self.steps_enabled:
+                        wait_signal.wait()
                 if great_output:
                     Utils.sleep_qt(self.delay * 1000 / 2 / 3)
                     self.viz_window.add_nodes(great_output, cur_bucket)
+                    if self.steps_enabled:
+                        wait_signal.wait()
 
                 # deletion of old, useless buckets
-                self.viz_window.remove_graph((self.depth + 1) * 3)  # Useless right bucket
+                if self.delay:
+                    Utils.sleep_qt(self.delay * 1000 / 2)
+
+                self.viz_window.remove_graph(((self.depth + 1) * 3) + 0)  # Useless right bucket
                 self.viz_window.remove_graph(((self.depth + 1) * 3) - 1)  # Useless equal bucket
                 self.viz_window.remove_graph(((self.depth + 1) * 3) - 2)  # Useless left bucket
+
+                if self.delay:
+                    Utils.sleep_qt(self.delay * 1000 / 2)
+
+            # CODE - Highlight line that signifies recursive call
+            if self.highlight_enabled:
+                self.cod_window.highlight_line(5)
 
             output = less_output + eq_output + great_output
 
@@ -357,18 +387,28 @@ class QuickSort(Algorithm):
         # only 1 number
         else:
 
-            """
-            Actions for when empty or one element list is passed
-            """
-            # don't need to make anything else
-            Utils.sleep_qt(self.delay * 1000 /2)
+            # highlight to signify which graph we are on
+            if self.viz_enabled:
+                self.viz_window.highlight_node(0, True, cur_bucket)
+
+            # pause before deletion
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
             # delete the graphs created
             # deletion of old, useless buckets
             self.viz_window.remove_graph((self.depth + 1) * 3)  # Useless right bucket
             self.viz_window.remove_graph(((self.depth + 1) * 3) - 1)  # Useless equal bucket
             self.viz_window.remove_graph(((self.depth + 1) * 3) - 2)  # Useless left bucket
 
-            # tracking depth
-            self.depth -= 1
+            # pause after deletion
+            if self.delay:
+                Utils.sleep_qt(self.delay * 1000 / 2)
+
+            # undoing the highlight that signified which graph we are on
+            if self.viz_enabled:
+                self.viz_window.highlight_node(0, False, cur_bucket)
+
+            if self.steps_enabled:
+                wait_signal.wait()
 
             return num_list
