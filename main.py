@@ -61,7 +61,7 @@ class MainApplication:
         parser.add_argument("-r",
                             dest="random",
                             help="SOURCE: specifies the size of N in a random list")
-        parser.add_argument("-l",
+        parser.add_argument("-m",
                             dest="manual",
                             help="SOURCE: specifies manual list of numbers, separated by commas")
 
