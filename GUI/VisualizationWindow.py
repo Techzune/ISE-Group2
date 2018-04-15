@@ -268,6 +268,7 @@ class VisualizationWindow(QGraphicsView):
         self.viewport().update()
         self.center_all()
 
+
 class Graph:
     """
     A graph of circular nodes
