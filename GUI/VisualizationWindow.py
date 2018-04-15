@@ -337,7 +337,6 @@ class Graph:
 
             # insert the node and add edges
             node = Node(self._scene, last.x() + NODE_RADIUS * 3, self._y_pos, str(text), self._color)
-            self._scene.addItem(node)
             self._node_list.append(node)
             self._scene.addItem(Edge(last, node, self._color))
 
