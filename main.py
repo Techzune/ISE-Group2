@@ -105,6 +105,10 @@ class MainApplication:
         if result.file is not None:
             options["file"] = result.file
         elif result.random is not None:
+            if int(result.random) not in range(1, 10001):
+                # restraint on random N size
+                print("INVALID: size N must be in range of [1, 10000]")
+                sys.exit()
             options["random"] = result.random
         elif result.manual is not None:
             options["manual"] = result.manual
@@ -128,7 +132,6 @@ class MainApplication:
 
         # start the algorithm
         self.start_algorithm(options)
-
 
     def start_algorithm(self, options: dict):
         """
