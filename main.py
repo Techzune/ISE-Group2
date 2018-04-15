@@ -272,6 +272,9 @@ class MainApplication:
         # start the message box
         m_box.exec()
 
+        # exit the program
+        sys.exit()
+
     def moveGUIs(self):
         """
         Aligns the visualization window and code highlight window
