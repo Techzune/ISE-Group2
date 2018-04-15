@@ -229,6 +229,7 @@ class MainApplication:
 
         # open the GUIs
         self.code_window.show()
+        self.code_window.set_step_enabled(alg.steps_enabled)
         if alg.viz_enabled:
             self.viz_window.show()
             self.moveGUIs()

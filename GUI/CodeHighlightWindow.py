@@ -57,6 +57,12 @@ class CodeHighlightWindow(QMainWindow):
         """
         self.signal_step.emit()
 
+    def set_step_enabled(self, enabled):
+        """
+        Sets if the NextStep button is enabled
+        """
+        self.pushButton.setEnabled(enabled)
+
     def set_alg_name(self, name: str):
         """
         Sets the algorithm's name in the GUI
