@@ -96,10 +96,12 @@ class MainApplication:
         if sources_count > 1:
             # prevent use of more than one source
             print("INVALID: cannot have more than one SOURCE argument defined")
+            print("         use -h to show help")
             sys.exit()
         elif sources_count == 0:
             # must specify a source
             print("INVALID: must specify a SOURCE argument")
+            print("         use -h to show help")
             sys.exit()
 
         if result.file is not None:
@@ -108,6 +110,7 @@ class MainApplication:
             if int(result.random) not in range(1, 10001):
                 # restraint on random N size
                 print("INVALID: size N must be in range of [1, 10000]")
+                print("         use -h to show help")
                 sys.exit()
             options["random"] = result.random
         elif result.manual is not None:
@@ -117,6 +120,7 @@ class MainApplication:
         if result.algorithm is None or result.algorithm not in ["BubbleSort", "CountingSort", "InsertionSort", "MergeSort", "QuickSort"]:
             # must specify algorithm
             print("INVALID: must specify algorithm (BubbleSort, CountingSort, InsertionSort, MergeSort, QuickSort)")
+            print("         use -h to show help")
             sys.exit()
         options["algorithm"] = result.algorithm
 
@@ -327,6 +331,10 @@ if __name__ == "__main__":
           "====================================================",
           "",
           sep="\n")
+
+    # display the arguments for the user
+    print("arguments:", " ".join(sys.argv[1:]))
+    print()
 
     # define the exception handler
     sys.excepthook = exception_hook
