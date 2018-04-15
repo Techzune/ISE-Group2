@@ -1,7 +1,7 @@
 # title: SWEG2Application
 # author: Avan Patel, Kohler Smallwood, Azlin Reed, Jordan Stremming, Steven Huynh, Zach Butterbaugh, Thea Furby
 # purpose: Primary application file; hub of application
-
+import argparse
 import sys
 import time
 
@@ -41,15 +41,94 @@ class MainApplication:
         # check if the user provided arguments
         if len(sys.argv) > 1:
             # if so, skip showing the init window
-            # TODO: run start_algorithm with proper arguments
-            # TODO: write the handler for arguments
-            print("arguments detected!", sys.argv)
+            self.parse_args()
+
         else:
             # if not, show the init window
             self.init_window.show()
 
         # start the application loop (this prevents the program from exiting instantly)
         sys.exit(app.exec_())
+
+    def parse_args(self):
+        """
+        Uses Python's ArgumentParser to process arguments passed through the command line
+        """
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-f",
+                            dest="file",
+                            help="SOURCE: specifies path to file to import numbers, separated by newlines")
+        parser.add_argument("-r",
+                            dest="random",
+                            help="SOURCE: specifies the size of N in a random list")
+        parser.add_argument("-l",
+                            dest="manual",
+                            help="SOURCE: specifies manual list of numbers, separated by commas")
+
+        parser.add_argument("-a",
+                            dest="algorithm",
+                            help="specifies the algorithm to run\n(BubbleSort, CountingSort, InsertionSort, MergeSort, QuickSort)")
+        parser.add_argument("-d",
+                            dest="delay_int",
+                            type=int,
+                            help="specifies the delay time in seconds")
+        parser.add_argument("-V",
+                            dest="show_viz",
+                            action="store_true",
+                            help="shows visualization")
+        parser.add_argument("-P",
+                            dest="show_highlight",
+                            action="store_true",
+                            help="enables code line highlighting")
+        parser.add_argument("-S",
+                            dest="use_steps",
+                            action="store_true",
+                            help="enables step-by-step")
+
+        # run the argument parser
+        result = parser.parse_args()
+
+        # use the results
+        options = {}
+
+        # -- handle sources
+        sources_count = sum([result.file is not None, result.random is not None, result.manual is not None])
+        if sources_count > 1:
+            # prevent use of more than one source
+            print("INVALID: cannot have more than one SOURCE argument defined")
+            sys.exit()
+        elif sources_count == 0:
+            # must specify a source
+            print("INVALID: must specify a SOURCE argument")
+            sys.exit()
+
+        if result.file is not None:
+            options["file"] = result.file
+        elif result.random is not None:
+            options["random"] = result.random
+        elif result.manual is not None:
+            options["manual"] = result.manual
+
+        # -- handle algorithm
+        if result.algorithm is None or result.algorithm not in ["BubbleSort", "CountingSort", "InsertionSort", "MergeSort", "QuickSort"]:
+            # must specify algorithm
+            print("INVALID: must specify algorithm (BubbleSort, CountingSort, InsertionSort, MergeSort, QuickSort)")
+            sys.exit()
+        options["algorithm"] = result.algorithm
+
+        # -- handle other arguments
+        if result.delay_int is not None:
+            options["delay"] = result.delay_int
+        if result.show_viz is not None:
+            options["show_viz"] = result.show_viz
+        if result.show_highlight is not None:
+            options["show_highlight"] = result.show_highlight
+        if result.use_steps is not None:
+            options["use_steps"] = result.use_steps
+
+        # start the algorithm
+        self.start_algorithm(options)
+
 
     def start_algorithm(self, options: dict):
         """
