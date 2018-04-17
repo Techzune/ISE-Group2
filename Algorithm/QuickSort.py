@@ -396,9 +396,10 @@ class QuickSort(Algorithm):
                 Utils.sleep_qt(self.delay * 1000 / 2)
             # delete the graphs created
             # deletion of old, useless buckets
-            self.viz_window.remove_graph((self.depth + 1) * 3)  # Useless right bucket
-            self.viz_window.remove_graph(((self.depth + 1) * 3) - 1)  # Useless equal bucket
-            self.viz_window.remove_graph(((self.depth + 1) * 3) - 2)  # Useless left bucket
+            if self.viz_enabled:
+                self.viz_window.remove_graph((self.depth + 1) * 3)  # Useless right bucket
+                self.viz_window.remove_graph(((self.depth + 1) * 3) - 1)  # Useless equal bucket
+                self.viz_window.remove_graph(((self.depth + 1) * 3) - 2)  # Useless left bucket
 
             # pause after deletion
             if self.delay:
