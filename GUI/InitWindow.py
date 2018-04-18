@@ -103,6 +103,8 @@ class InitWindow(QMainWindow):
                 # "Manual number input" is selected
                 options["manual"] = self.input_source.text()
 
+
+
             # specify if visualizations should show
             options["show_viz"] = self.check_show_visualization.isChecked()
 

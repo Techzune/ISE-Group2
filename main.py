@@ -179,6 +179,8 @@ class MainApplication:
             num_list = Utils.generate_ints(int(options["random"]))
         elif "manual" in options:
             num_list = Utils.commas_to_nums(options["manual"])
+            if not Utils.check_safe_list(num_list):
+                raise Exception("Cannot have list with numbers greater than 10,000")
         else:
             # nothing was specified
             raise Exception("source was not specified!")
@@ -268,7 +270,7 @@ class MainApplication:
 
         # set the title and text
         m_box.setWindowTitle("All done!")
-        if len(num_list) > 1000:
+        if len(num_list) > 100:
             m_box.setText("Here are the results:\n\nLISTS TOO BIG TO DISPLAY: {}\nTime (ms): {}".format(len(num_list), time_end-time_start))
         else:
             m_box.setText("Here are the results:\n\nOrig List: {}\nSort List: {}\nTime (ms): {}".format(str_numlist, str(result_list), str(time_end-time_start)))
