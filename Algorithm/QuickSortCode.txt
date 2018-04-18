@@ -4,3 +4,4 @@ Sorting the List
     Adding Node to Proper Bucket (Based on Pivot)
         Making more buckets (Recursion)
     Putting Buckets back together
+FINISHED
