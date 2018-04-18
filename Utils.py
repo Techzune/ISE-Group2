@@ -135,6 +135,19 @@ def sleep_qt(msec):
     loop.exec_()
 
 
+def check_safe_list(list):
+    """
+    Verifies no numbers in a list are greater than 10,000
+    :param list: the list to check
+    :return: True, if the list passes
+    """
+    for num in list:
+        if num > 10000:
+            return False
+
+    # the list passed
+    return True
+
 class WaitSignal:
     """
     Used to wait for a signal to emit itself
