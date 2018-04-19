@@ -382,7 +382,7 @@ class QuickSort(Algorithm):
                 self.cod_window.highlight_line(5)
 
                 if self.depth == 0:
-                    self.cod_window.highlight_like(6)
+                    self.cod_window.highlight_line(6)
 
             output = less_output + eq_output + great_output
 
